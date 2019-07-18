@@ -1316,6 +1316,23 @@ footer{
             }
         }
     }
+
+    .copyright{
+        background-color: #333;
+        width: 100%;
+        height: auto;
+        padding: 10px 0px 5px;
+        color: white;
+        nav.uk-navbar{
+            border: 1px solid black;
+            width: 85%;
+            margin: 0 auto;
+        }
+        .uk-navbar-nav > li > a{
+            min-height: auto;
+            text-transform: capitalize;
+        }
+    }
 }
 
 .post{
@@ -1330,3 +1347,4 @@ footer{
 .uk-list li{
     line-height: 1rem;
 }
+

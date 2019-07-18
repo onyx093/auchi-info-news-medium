@@ -1511,6 +1511,25 @@ footer .mdc-list .mdc-list-item a {
   text-decoration: none;
 }
 
+footer .copyright {
+  background-color: #333;
+  width: 100%;
+  height: auto;
+  padding: 10px 0px 5px;
+  color: white;
+}
+
+footer .copyright nav.uk-navbar {
+  border: 1px solid black;
+  width: 85%;
+  margin: 0 auto;
+}
+
+footer .copyright .uk-navbar-nav > li > a {
+  min-height: auto;
+  text-transform: capitalize;
+}
+
 .post .post-header a {
   text-decoration: none;
   color: #222;

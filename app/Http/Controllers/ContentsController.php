@@ -96,4 +96,8 @@ class ContentsController extends Controller
     {
         return view('writeforus');
     }
+    public function marketplace()
+    {
+        return view('marketplace');
+    }
 }
