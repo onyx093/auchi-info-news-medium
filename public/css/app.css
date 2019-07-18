@@ -1520,11 +1520,11 @@ footer .copyright {
 }
 
 footer .copyright nav.uk-navbar {
-  border: 1px solid black;
   width: 85%;
   margin: 0 auto;
 }
 
+footer .copyright .uk-navbar-nav > li,
 footer .copyright .uk-navbar-nav > li > a {
   min-height: auto;
   text-transform: capitalize;

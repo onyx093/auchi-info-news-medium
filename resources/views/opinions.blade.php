@@ -1,1 +1,5 @@
-Opinions page
+@extends('layouts.app')
+
+@section('content')
+
+@endsection

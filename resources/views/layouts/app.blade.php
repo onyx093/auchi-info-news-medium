@@ -103,17 +103,16 @@
             <nav class="uk-navbar-container uk-navbar-transparent base-navigation" uk-navbar>
                 <div class="uk-navbar-left">
                     <ul class="uk-navbar-nav">
-                        <li class="uk-active"><a href="#">Home</a></li>
-                        <li class="uk-parent"><a href="#">News</a></li>
-                        <li class="uk-parent"><a href="#">Business</a></li>
-                        <li class="uk-parent"><a href="#">Politics</a></li>
-                        <li class="uk-parent"><a href="#">Health</a></li>
-                        <li class="uk-parent"><a href="#">Arts/Life</a></li>
-                        <li class="uk-parent"><a href="#">Religion</a></li>
-                        <li class="uk-parent"><a href="#">Editorial</a></li>
-                        <li class="uk-parent"><a href="#">Opinion</a></li>
-                        <li class="uk-parent"><a href="#">Environment</a></li>
-                        <li class="uk-parent"><a href="#">Sports</a></li>
+                        <li class="uk-active"><a href="{{ route('welcome') }}">News</a></li>
+                        <li class=""><a href="{{ route('business') }}">Business</a></li>
+                        <li class=""><a href="{{ route('politics') }}">Politics</a></li>
+                        <li class=""><a href="{{ route('health') }}">Health</a></li>
+                        <li class=""><a href="{{ route('arts') }}">Arts/Life</a></li>
+                        <li class=""><a href="{{ route('religion') }}">Religion</a></li>
+                        <li class=""><a href="{{ route('editorial') }}">Editorial</a></li>
+                        <li class=""><a href="{{ route('opinions') }}">Opinion</a></li>
+                        <li class=""><a href="{{ route('environment') }}">Environment</a></li>
+                        <li class=""><a href="{{ route('sports') }}">Sports</a></li>
                     </ul>
                 </div>
 
@@ -236,31 +235,28 @@
                     <p class="sub-heading mdc-typography--headline5" >Other categories</p>
                         <ul class="mdc-list">
                             <li class="mdc-list-item" tabindex="0">
-                                <span class="mdc-list-item__text"><a href="#">About us</a></span>
+                                <span class="mdc-list-item__text"><a href="{{ route('about') }}">About us</a></span>
                             </li>
                             <li class="mdc-list-item">
-                                <span class="mdc-list-item__text"><a href="#">Contact us</a></span>
+                                <span class="mdc-list-item__text"><a href="{{ route('contact.index') }}">Contact us</a></span>
                             </li>
                             <li class="mdc-list-item">
-                                <span class="mdc-list-item__text"><a href="#">Terms of agreement</a></span>
+                                <span class="mdc-list-item__text"><a href="{{ route('advert') }}">Advert rate</a></span>
                             </li>
                             <li class="mdc-list-item">
-                                <span class="mdc-list-item__text"><a href="#">Privacy Policy</a></span>
+                                <span class="mdc-list-item__text"><a href="{{ route('marketplace.index') }}">The marketplace</a></span>
                             </li>
                             <li class="mdc-list-item">
-                                <span class="mdc-list-item__text"><a href="#">Advert rate</a></span>
+                                <span class="mdc-list-item__text"><a href="{{ route('directory') }}">Business directory</a></span>
                             </li>
                             <li class="mdc-list-item">
-                                <span class="mdc-list-item__text"><a href="#">Business directory</a></span>
+                                <span class="mdc-list-item__text"><a href="{{ route('ireport') }}">I report</a></span>
                             </li>
                             <li class="mdc-list-item">
-                                <span class="mdc-list-item__text"><a href="#">I report</a></span>
+                                <span class="mdc-list-item__text"><a href="{{ route('writeforus') }}">Write for us</a></span>
                             </li>
                             <li class="mdc-list-item">
-                                <span class="mdc-list-item__text"><a href="#">Write for us</a></span>
-                            </li>
-                            <li class="mdc-list-item">
-                                <span class="mdc-list-item__text"><a href="#">Login</a></span>
+                                <span class="mdc-list-item__text"><a href="{{ route('login') }}">Login</a></span>
                             </li>
                         </ul>
                     </div>
@@ -272,7 +268,7 @@
                     <div class="uk-navbar-left">
                 
                         <ul class="uk-navbar-nav">
-                            <li class="uk-active">&copy;Copyright {{ date("Y") }} - Auchi Info</li>
+                            <li class="uk-active">&copy;copyright - auchi info news media {{ date("Y") }}</li>
                         </ul>
                 
                     </div>
@@ -280,9 +276,9 @@
                     <div class="uk-navbar-right">
                 
                         <ul class="uk-navbar-nav">
-                            <li><a href="#">Item</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="{{ route('policy') }}">privacy policy</a></li>
+                            <li><a href="{{ route('terms') }}">terms of agreement</a></li>
+                            <li><a href="{{ route('contact.index') }}">contact us</a></li>
                         </ul>
                 
                     </div>

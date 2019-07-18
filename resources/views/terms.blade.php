@@ -1,1 +1,5 @@
-Terms of agreement page
+@extends('layouts.app')
+
+@section('content')
+
+@endsection

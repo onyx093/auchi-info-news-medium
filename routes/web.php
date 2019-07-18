@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ContentsController@home')->name('welcome');
+Route::get('/', 'ContentsController@index')->name('welcome');
 Route::get('/business', 'ContentsController@business')->name('business');
 Route::get('/politics', 'ContentsController@politics')->name('politics');
 Route::get('/health', 'ContentsController@health')->name('health');
@@ -21,18 +21,18 @@ Route::get('/editorial', 'ContentsController@editorial')->name('editorial');
 Route::get('/opinions', 'ContentsController@opinions')->name('opinions');
 Route::get('/environment', 'ContentsController@environment')->name('environment');
 Route::get('/sports', 'ContentsController@sports')->name('sports');
-Route::get('/about', 'ContentsController@about')->name('about');
-Route::get('/terms', 'ContentsController@terms')->name('terms');
-Route::get('/policy', 'ContentsController@policy')->name('policy');
-Route::get('/advert', 'ContentsController@advert')->name('advert');
+Route::get('/about-us', 'ContentsController@about')->name('about');
+Route::get('/terms-of-agreement', 'ContentsController@terms')->name('terms');
+Route::get('/privacy-policy', 'ContentsController@policy')->name('policy');
+Route::get('/advert-rate', 'ContentsController@advert')->name('advert');
 Route::get('/directory', 'ContentsController@directory')->name('directory');
 Route::get('/ireport', 'ContentsController@ireport')->name('ireport');
 Route::get('/writeforus', 'ContentsController@writeforus')->name('writeforus');
 
+Route::get('/marketplace', 'AdvertController@index')->name('marketplace.index');
+
 
 Route::get('/news/post', 'ContentsController@newpost')->name('post');
-
-Auth::routes();
 
 Route::get('/contact', 'ContactController@index')->name('contact.index');
 

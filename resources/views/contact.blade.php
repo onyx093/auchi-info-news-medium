@@ -1,1 +1,5 @@
-Contact Page
+@extends('layouts.app')
+
+@section('content')
+
+@endsection

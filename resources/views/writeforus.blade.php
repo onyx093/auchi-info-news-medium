@@ -1,1 +1,5 @@
-Write for us page
+@extends('layouts.app')
+
+@section('content')
+
+@endsection

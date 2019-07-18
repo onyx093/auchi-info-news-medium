@@ -1324,11 +1324,10 @@ footer{
         padding: 10px 0px 5px;
         color: white;
         nav.uk-navbar{
-            border: 1px solid black;
             width: 85%;
             margin: 0 auto;
         }
-        .uk-navbar-nav > li > a{
+        .uk-navbar-nav > li, .uk-navbar-nav > li > a{
             min-height: auto;
             text-transform: capitalize;
         }

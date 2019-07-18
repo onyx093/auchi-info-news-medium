@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class ContentsController extends Controller
 {
     //
-    public function home()
+    public function index()
     {
         return view('home');
     }
