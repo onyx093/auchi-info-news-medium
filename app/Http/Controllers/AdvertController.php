@@ -20,7 +20,8 @@ class AdvertController extends Controller
     public function index()
     {
         //
-        return view('marketplace.index');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('marketplace.index', [ 'ip_location' => $arr_ip ]);
     }
 
     /**
@@ -53,6 +54,8 @@ class AdvertController extends Controller
     public function show($id)
     {
         //
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('marketplace.show', [ 'ip_location' => $arr_ip ]);
     }
 
     /**

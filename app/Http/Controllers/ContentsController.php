@@ -9,95 +9,114 @@ class ContentsController extends Controller
     //
     public function index()
     {
-        return view('home');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('home', [ 'ip_location' => $arr_ip ]);
     }
 
     public function newpost()
     {
-        return view('post');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('post', [ 'ip_location' => $arr_ip ]);
     }
 
     public function business()
     {
-        return view('business');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('business', [ 'ip_location' => $arr_ip ]);
     }
 
     public function politics()
     {
-        return view('politics');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('politics', [ 'ip_location' => $arr_ip ]);
     }
 
     public function health()
     {
-        return view('health');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('health', [ 'ip_location' => $arr_ip ]);
     }
 
     public function arts()
     {
-        return view('arts');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('arts', [ 'ip_location' => $arr_ip ]);
     }
 
     public function religion()
     {
-        return view('religion');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('religion', [ 'ip_location' => $arr_ip ]);
     }
 
     public function editorial()
     {
-        return view('editorial');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('editorial', [ 'ip_location' => $arr_ip ]);
     }
 
     public function opinions()
     {
-        return view('opinions');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('opinions', [ 'ip_location' => $arr_ip ]);
     }
 
     public function environment()
     {
-        return view('environment');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('environment', [ 'ip_location' => $arr_ip ]);
     }
 
     public function sports()
     {
-        return view('sports');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('sports', [ 'ip_location' => $arr_ip ]);
     }
 
     public function about()
     {
-        return view('about');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('about', [ 'ip_location' => $arr_ip ]);
     }
 
     public function terms()
     {
-        return view('terms');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('terms', [ 'ip_location' => $arr_ip ]);
     }
 
     public function policy()
     {
-        return view('policy');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('policy', [ 'ip_location' => $arr_ip ]);
     }
 
     public function advert()
     {
-        return view('advert');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('advert', [ 'ip_location' => $arr_ip ]);
     }
 
     public function directory()
     {
-        return view('directory');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('directory', [ 'ip_location' => $arr_ip ]);
     }
 
     public function ireport()
     {
-        return view('ireport');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('ireport', [ 'ip_location' => $arr_ip ]);
     }
 
     public function writeforus()
     {
-        return view('writeforus');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('writeforus', [ 'ip_location' => $arr_ip ]);
     }
     public function marketplace()
     {
-        return view('marketplace');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        return view('marketplace', [ 'ip_location' => $arr_ip ]);
     }
 }

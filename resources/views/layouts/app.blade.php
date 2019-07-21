@@ -20,19 +20,22 @@
     <!-- Styles -->
     <link href="{{ asset('css/material-components-web.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/uikit.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
 <body>
     <div id="app">
-        <div id="top-header" class="uk-section" >
+        <div id="top-header" class="uk-section" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar" >
             <div class="uk-container" >
                 <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
-                            <li><a href="#">Location</a></li>
-                            <li><a href="#">Date</a></li>
+                            @if (isset($ip_location))
+                            <li>{{ $ip_location->country }}</li>
+                            @endif
+                            <li>{{ date("l, F j Y") }}</li>
                             <li><a href="{{ route('contact.index') }}">Contact</a></li>
                             @guest
                             <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
@@ -45,11 +48,11 @@
                                     <div class="mdc-menu mdc-menu-surface">
                                         <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
                                             <li class="mdc-list-item" role="menuitem">
-                                                <a href="#" class="mdc-list-item__text" >A Menu Item</a>
+                                                <a href="#" class="mdc-list-item__text" >dashboard</a>
                                             </li>
                                             <li class="mdc-list-item" role="menuitem">
                                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" class="mdc-list-item__text" >{{ __('Logout') }}</a>
+                                                     document.getElementById('logout-form').submit();" class="mdc-list-item__text" >{{ __('logout') }}</a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                     @csrf
                                                 </form>
@@ -66,11 +69,11 @@
                     <div class="uk-navbar-right">
 
                         <ul class="uk-navbar-nav">
-                            <li><a href="#">Location</a></li>
-                            <li><a href="#">Date</a></li>
-                            <li><a href="#">Sign in/Join</a></li>
-                            <li><a href="{{ route('contact.index') }}">Contact</a></li>
-                            <li><a href="#">Parent</a></li>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+
                         </ul>
 
                     </div>
@@ -268,7 +271,7 @@
                     <div class="uk-navbar-left">
                 
                         <ul class="uk-navbar-nav">
-                            <li class="uk-active">&copy;copyright - auchi info news media {{ date("Y") }}</li>
+                            <li class="uk-active mdc-typography--body1">&copy;copyright - auchi info news media {{ date("Y") }}</li>
                         </ul>
                 
                     </div>

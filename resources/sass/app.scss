@@ -7,6 +7,7 @@ html, body{
     padding: 0;
 }
 
+
 #top-header{
     padding: 5px;
     width: 100%;
@@ -14,13 +15,18 @@ html, body{
     height: auto;
     color: white;
 
-    .uk-navbar-nav > li > a{
-        min-height: auto;
-        color: white;
-        text-transform: capitalize;
+    .uk-navbar-nav > li {
+        font-size: 0.875rem;
+        padding: 0 15px;
+        >a{
+            min-height: auto;
+            color: white;
+            text-transform: capitalize;
+            padding: 0;
 
-        &:hover{
-            color: lightgray;
+            &:hover{
+                color: lightgray;
+            }
         }
     }
 }
@@ -1346,4 +1352,124 @@ footer{
 .uk-list li{
     line-height: 1rem;
 }
+
+.advert-cards{
+
+    &.uk-grid > *{
+        padding: 0;
+    }
+    &.uk-grid > div{
+        height: auto;
+    }
+    .uk-card-default{
+        border-radius: 4px;
+        box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0,0,0,.12);
+        .uk-card-header{
+            padding: 10px;
+            .uk-card-title{
+                font-size: 1rem;
+            }
+        }
+        .uk-card-body{
+            padding: 0;
+            p{
+                margin-left: 0.5rem;
+            }
+            >p:first-child{
+                margin-top: 0.5rem;
+            }
+            .uk-card-media-top{
+                height: 150px;
+                overflow: hidden;
+            }
+        }
+        .uk-card-footer{
+            padding: 10px 5px;
+            a{
+                padding: 0 0.75rem;
+            }
+        }
+    }
+    .mdc-typography--headline6{
+        line-height: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+    .mdc-typography--body1{
+        line-height: 1rem;
+        font-size: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    p+p{
+        margin: 0.75rem 0;
+    }
+    .advert-title{
+        p{
+            margin: 0;
+            font-weight: 600;
+        }
+    }
+}
+
+@media ( min-width: 840px )
+{
+    .mdc-layout-grid{
+        padding: 0;
+    }
+}
+
+@media ( min-width: 1200px )
+{
+
+    .advert-cards{
+
+        &.uk-grid > *{
+            padding: 0;
+        }
+        .uk-card{
+            margin: 0 1.2rem;
+        }
+    }
+
+}
+
+.truncate {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .adverts{
+    margin-top: 2rem;
+    width: 100%;
+    margin-left: auto;
+     margin-right: auto;
+  }
+
+  .advert-100{
+    height: 100px;
+    overflow: hidden;
+  }
+
+  .advert-150{
+    height: 150px;
+    overflow: hidden;
+  }
+
+  .advert-200{
+    height: 200px;
+    overflow: hidden;
+  }
+
+
+  .advert-250{
+    height: 250px;
+    overflow: hidden;
+  }
+
+
+  .advert-320{
+    height: 320px;
+    overflow: hidden;
+  }
 

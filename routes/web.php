@@ -29,12 +29,12 @@ Route::get('/directory', 'ContentsController@directory')->name('directory');
 Route::get('/ireport', 'ContentsController@ireport')->name('ireport');
 Route::get('/writeforus', 'ContentsController@writeforus')->name('writeforus');
 
-Route::get('/marketplace', 'AdvertController@index')->name('marketplace.index');
+Route::get('/the-marketplace', 'AdvertController@index')->name('marketplace.index');
 
 
 Route::get('/news/post', 'ContentsController@newpost')->name('post');
 
-Route::get('/contact', 'ContactController@index')->name('contact.index');
+Route::get('/contact-us', 'ContactController@index')->name('contact.index');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
