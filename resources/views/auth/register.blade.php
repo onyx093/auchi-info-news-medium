@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="uk-section">
+<div class="uk-section uk-tile uk-background-muted register-form">
     <div class="uk-flex uk-flex-center">
         <p class="mdc-typography--headline4" >{{ __('Register') }}</p>
     </div>

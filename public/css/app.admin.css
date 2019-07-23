@@ -1,0 +1,103 @@
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: auto;
+  background-color: #eee;
+}
+
+#top-header {
+  padding: 5px;
+  width: 100%;
+  background-color: #222;
+  height: auto;
+  color: white;
+}
+
+#top-header .uk-navbar-nav > li {
+  font-size: 0.875rem;
+  padding: 0 15px;
+}
+
+#top-header .uk-navbar-nav > li > a {
+  min-height: auto;
+  color: white;
+  text-transform: capitalize;
+  padding: 0;
+}
+
+#top-header .uk-navbar-nav > li > a:hover {
+  color: lightgray;
+}
+
+.sidebar {
+  background: -webkit-gradient(linear, left top, left bottom, from(#014488), to(#67c8eb));
+  background: linear-gradient(#014488, #67c8eb);
+  border-radius: 10px;
+  height: auto;
+  width: 100%;
+}
+
+.sidebar .admin-user {
+  padding: 1.5rem;
+}
+
+.sidebar .admin-nav li.mdc-list-item {
+  padding: 0 1.25rem;
+}
+
+.sidebar .admin-nav li.mdc-list-item a {
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  height: auto;
+}
+
+.sidebar .admin-nav li.mdc-list-item:hover,
+.sidebar .admin-nav li.mdc-list-item.active {
+  background-color: #eee;
+}
+
+.sidebar .admin-nav li.mdc-list-item:hover a,
+.sidebar .admin-nav li.mdc-list-item.active a {
+  color: #222;
+}
+
+.sidebar .admin-nav li.mdc-list-item:hover a {
+  color: #014488;
+}
+
+.sidebar .logo-wrapper {
+  padding: 1rem;
+}
+
+@media (min-width: 840px) {
+  .mdc-layout-grid {
+    padding: 1rem;
+  }
+}
+
+footer {
+  height: auto;
+  background-color: #666;
+}
+
+footer .copyright {
+  background-color: #333;
+  width: 100%;
+  height: auto;
+  padding: 10px 0px 5px;
+  color: white;
+}
+
+footer .copyright nav.uk-navbar {
+  width: 85%;
+  margin: 0 auto;
+}
+
+footer .copyright .uk-navbar-nav > li,
+footer .copyright .uk-navbar-nav > li > a {
+  min-height: auto;
+  text-transform: capitalize;
+}
+

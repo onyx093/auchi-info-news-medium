@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class ContactController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('contact');
+        //
+        return view('admin.posts.index');
     }
 
     /**
@@ -35,7 +37,6 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         //
-        
     }
 
     /**

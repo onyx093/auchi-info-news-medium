@@ -93,6 +93,28 @@ body {
   margin: 0;
 }
 
+.trending {
+  width: 100%;
+  max-height: 40px !important;
+  margin: 0 auto;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.trending p {
+  text-transform: uppercase;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+}
+
+.trending a {
+  color: #222;
+}
+
+.trending a:hover {
+  color: #222;
+}
+
 /*Big grids*/
 
 .grid {
@@ -1431,7 +1453,7 @@ body {
 
 footer {
   height: auto;
-  padding: 0;
+  padding: 1.5rem 0 0;
   background-color: #666;
 }
 
@@ -1545,6 +1567,10 @@ footer .copyright .uk-navbar-nav > li > a {
   line-height: 1rem;
 }
 
+.advert-wrapper {
+  position: relative;
+}
+
 .advert-cards.uk-grid > * {
   padding: 0;
 }
@@ -1627,6 +1653,14 @@ footer .copyright .uk-navbar-nav > li > a {
   }
 }
 
+/*******/
+
+.login-form,
+.register-form {
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
 .truncate {
   display: block;
   white-space: nowrap;
@@ -1635,7 +1669,6 @@ footer .copyright .uk-navbar-nav > li > a {
 }
 
 .adverts {
-  margin-top: 2rem;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -1664,5 +1697,27 @@ footer .copyright .uk-navbar-nav > li > a {
 .advert-320 {
   height: 320px;
   overflow: hidden;
+}
+
+.mdc-fab {
+  background-color: #f1c726;
+  z-index: 100;
+}
+
+.mdc-fab.mdc-fab--absolute {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.uk-modal-dialog {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  width: 650px;
+}
+
+.mdc-list-item {
+  height: auto;
+  padding: 5px 16px;
 }
 

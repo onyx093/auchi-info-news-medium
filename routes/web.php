@@ -39,3 +39,13 @@ Route::get('/contact-us', 'ContactController@index')->name('contact.index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
+
+// Admin section
+
+Route::get('/admin/dashboard', 'Admin\AdminRouteController@dashboard')->name('admin-dashboard');
+Route::get('/admin/category-pages', 'Admin\AdminRouteController@pages')->name('category-pages');
+Route::post('/admin/logout', 'Admin\AdminRouteController@logout')->name('admin-logout');
+
+Route::resource('/admin/settings', 'Admin\AccountSettingsController');
+Route::resource('/admin/posts', 'Admin\PostController');
+Route::resource('/admin/users', 'Admin\UsersController');

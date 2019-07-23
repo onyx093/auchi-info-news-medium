@@ -90,32 +90,22 @@
                     </a>
                 </div>
                 <div class="right" >
-                    <div class="uk-inline">
-                        <img src="{{ asset('img/photo8.jpg') }}" alt="">
-                        <div class="uk-overlay-primary uk-position-cover"></div>
-                        <div class="uk-overlay uk-position-bottom uk-light">
-                            <p>Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
+                    @include('layouts.adverts')
                 </div>
             </div>
-            <?php
-                $name = Route::currentRouteName();
-            ?>
-            @unless( Route::currentRouteName() == 'login' || Route::currentRouteName() == 'register' )
             <nav class="uk-navbar-container uk-navbar-transparent base-navigation" uk-navbar>
                 <div class="uk-navbar-left">
                     <ul class="uk-navbar-nav">
-                        <li class="uk-active"><a href="{{ route('welcome') }}">News</a></li>
-                        <li class=""><a href="{{ route('business') }}">Business</a></li>
-                        <li class=""><a href="{{ route('politics') }}">Politics</a></li>
-                        <li class=""><a href="{{ route('health') }}">Health</a></li>
-                        <li class=""><a href="{{ route('arts') }}">Arts/Life</a></li>
-                        <li class=""><a href="{{ route('religion') }}">Religion</a></li>
-                        <li class=""><a href="{{ route('editorial') }}">Editorial</a></li>
-                        <li class=""><a href="{{ route('opinions') }}">Opinion</a></li>
-                        <li class=""><a href="{{ route('environment') }}">Environment</a></li>
-                        <li class=""><a href="{{ route('sports') }}">Sports</a></li>
+                        <li class="{{ Route::currentRouteName() == 'welcome' ? 'uk-active' : '' }}"><a href="{{ route('welcome') }}">News</a></li>
+                        <li class="{{ Route::currentRouteName() == 'business' ? 'uk-active' : '' }}"><a href="{{ route('business') }}">Business</a></li>
+                        <li class="{{ Route::currentRouteName() == 'politics' ? 'uk-active' : '' }}"><a href="{{ route('politics') }}">Politics</a></li>
+                        <li class="{{ Route::currentRouteName() == 'health' ? 'uk-active' : '' }}"><a href="{{ route('health') }}">Health</a></li>
+                        <li class="{{ Route::currentRouteName() == 'arts' ? 'uk-active' : '' }}"><a href="{{ route('arts') }}">Arts/Life</a></li>
+                        <li class="{{ Route::currentRouteName() == 'religion' ? 'uk-active' : '' }}"><a href="{{ route('religion') }}">Religion</a></li>
+                        <li class="{{ Route::currentRouteName() == 'editorial' ? 'uk-active' : '' }}"><a href="{{ route('editorial') }}">Editorial</a></li>
+                        <li class="{{ Route::currentRouteName() == 'opinions' ? 'uk-active' : '' }}"><a href="{{ route('opinions') }}">Opinion</a></li>
+                        <li class="{{ Route::currentRouteName() == 'environment' ? 'uk-active' : '' }}"><a href="{{ route('environment') }}">Environment</a></li>
+                        <li class="{{ Route::currentRouteName() == 'sports' ? 'uk-active' : '' }}"><a href="{{ route('sports') }}">Sports</a></li>
                     </ul>
                 </div>
 
@@ -127,7 +117,6 @@
                     </ul>
                 </div>
             </nav>
-            @endunless
         </div>
 
         
@@ -252,9 +241,9 @@
                             <li class="mdc-list-item">
                                 <span class="mdc-list-item__text"><a href="{{ route('directory') }}">Business directory</a></span>
                             </li>
-                            <li class="mdc-list-item">
+                            {{-- <li class="mdc-list-item">
                                 <span class="mdc-list-item__text"><a href="{{ route('ireport') }}">I report</a></span>
-                            </li>
+                            </li> --}}
                             <li class="mdc-list-item">
                                 <span class="mdc-list-item__text"><a href="{{ route('writeforus') }}">Write for us</a></span>
                             </li>

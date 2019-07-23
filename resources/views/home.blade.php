@@ -4,6 +4,8 @@
 <div class="uk-container">
     {{-- <div class="mdc-typography--headline4">Dashboard</div> --}}
 
+    @include('layouts.components.trending')
+
     @include('layouts.big-grids.grids')
 
     <div class="mdc-layout-grid">
