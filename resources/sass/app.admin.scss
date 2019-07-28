@@ -1,3 +1,11 @@
+
+// @import "~@material/feature-targeting/functions";
+// @import "~@material/elevation/mdc-elevation";
+// @import "~@material/layout-grid/mdc-layout-grid";
+// @import "~@material/button/mdc-button";
+// @import "~@material/typography/mdc-typography";
+
+
 body{
     padding: 0;
     margin: 0;
@@ -35,11 +43,12 @@ body{
     height: auto;
     width: 100%;
     .admin-user{
-        padding: 1.5rem;
+        padding: 1.5rem 1.5rem 0;
     }
     .admin-nav{
         li.mdc-list-item{
             padding: 0 1.25rem;
+            height: 36px;
             .mdc-list-item__text{
             }
             a{
@@ -63,6 +72,28 @@ body{
     }
     .logo-wrapper{
         padding: 1rem;
+    }
+}
+
+.admin-portfolio .mdc-card{
+    flex-direction: unset;
+    margin-bottom: 2rem;
+    .uk-tile{
+        padding: 0.5rem 1rem;
+        // border-radius: 10px 10px;
+        .caption-header{
+            font-weight: 500;
+            color: #aaa;
+        }
+        * + .uk-h6{
+            margin-top: 1rem;
+        }
+        .uk-h6{
+            margin-bottom: 1rem;
+        }
+        .uk-nav-primary a{
+            padding: 0 1rem;
+        }
     }
 }
 

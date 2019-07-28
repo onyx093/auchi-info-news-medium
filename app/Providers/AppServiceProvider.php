@@ -27,8 +27,13 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
+
+        if(isset($_SERVER['REMOTE_ADDR']))
+        {
+
+            View::share( 'ip_location', geoip()->getLocation($_SERVER['REMOTE_ADDR']) );
+
+        }
         
-        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
-        View::share('ip_location', $arr_ip );
     }
 }

@@ -7,7 +7,12 @@ use App\Http\Controllers\Controller;
 
 class AdminRouteController extends Controller
 {
-    //
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+    
     public function dashboard()
     {
         return view('admin.dashboard');
@@ -25,8 +30,8 @@ class AdminRouteController extends Controller
 
     public function logout()
     {
-        //return view('admin.users');
-        redirect('admin.login');
+        return true;
+        //redirect('admin.login');
     }
     
 }

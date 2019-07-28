@@ -1,18 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
+use App\LocalGovernmentArea;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class UsersController extends Controller
+class LocalGovernmentAreaController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +15,6 @@ class UsersController extends Controller
     public function index()
     {
         //
-        return view('admin.users.index');
     }
 
     /**
@@ -48,10 +41,10 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\LocalGovernmentArea  $localGovernmentArea
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(LocalGovernmentArea $localGovernmentArea)
     {
         //
     }
@@ -59,10 +52,10 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\LocalGovernmentArea  $localGovernmentArea
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(LocalGovernmentArea $localGovernmentArea)
     {
         //
     }
@@ -71,10 +64,10 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\LocalGovernmentArea  $localGovernmentArea
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, LocalGovernmentArea $localGovernmentArea)
     {
         //
     }
@@ -82,10 +75,10 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\LocalGovernmentArea  $localGovernmentArea
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(LocalGovernmentArea $localGovernmentArea)
     {
         //
     }

@@ -14,6 +14,8 @@ import {MDCTextField} from '@material/textfield';
 import {MDCFormField} from '@material/form-field';
 import {MDCCheckbox} from '@material/checkbox';
 import {MDCTextFieldHelperText} from '@material/textfield/helper-text';
+import {MDCSelect} from '@material/select';
+import Axios from "axios";
 
 $(document).ready(function(){
 
@@ -41,6 +43,18 @@ $(document).ready(function(){
     const formField = new MDCFormField(document.querySelector('.mdc-form-field'));
     formField.input = checkbox;
 
+
+
+});
+
+$(document).on('change','.states',function(){
+    var state = $(this).val();
+    axios.get('http://127.0.0.1/admin/lga/' + state).then(
+        response => {
+            array.forEach(element => {
+                
+            });
+        });
 
 });
 

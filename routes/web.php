@@ -28,6 +28,7 @@ Route::get('/advert-rate', 'ContentsController@advert')->name('advert');
 Route::get('/directory', 'ContentsController@directory')->name('directory');
 Route::get('/ireport', 'ContentsController@ireport')->name('ireport');
 Route::get('/writeforus', 'ContentsController@writeforus')->name('writeforus');
+Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::get('/the-marketplace', 'AdvertController@index')->name('marketplace.index');
 
@@ -42,10 +43,25 @@ Auth::routes();
 
 // Admin section
 
-Route::get('/admin/dashboard', 'Admin\AdminRouteController@dashboard')->name('admin-dashboard');
-Route::get('/admin/category-pages', 'Admin\AdminRouteController@pages')->name('category-pages');
-Route::post('/admin/logout', 'Admin\AdminRouteController@logout')->name('admin-logout');
+Route::prefix('admin')->group(function()
+{
 
-Route::resource('/admin/settings', 'Admin\AccountSettingsController');
-Route::resource('/admin/posts', 'Admin\PostController');
-Route::resource('/admin/users', 'Admin\UsersController');
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+
+    Route::get('/dashboard', 'Admin\AdminRouteController@dashboard')->name('admin.dashboard');
+    Route::get('/page-categories', 'Admin\AdminRouteController@pages')->name('page.categories');
+
+    Route::resource('/settings', 'Admin\AccountSettingsController');
+    Route::resource('/posts', 'Admin\PostController');
+    Route::resource('/users', 'Admin\UsersController');
+    Route::resource('/directories', 'Admin\DirectoryController');
+
+    Route::get('/', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+
+    Route::get('/lga', 'Admin\AccountSettingsController@loadLGA');
+
+});
+
+Route::get('/lga', 'Admin\AccountSettingsController@loadLGA');

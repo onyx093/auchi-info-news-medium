@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Auchi Info News') }}</title>
+    <title>@yield('title', 'Auchi Info News')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -51,9 +51,9 @@
                                                 <a href="#" class="mdc-list-item__text" >dashboard</a>
                                             </li>
                                             <li class="mdc-list-item" role="menuitem">
-                                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                <a href="{{ route('user.logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" class="mdc-list-item__text" >{{ __('logout') }}</a>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                                                     @csrf
                                                 </form>
                                             </li>
@@ -284,6 +284,7 @@
     <script src="{{ asset('js/material-components-web.min.js') }}" ></script>
     <script src="{{ asset('js/uikit.min.js') }}" ></script>
     <script src="{{ asset('js/uikit-icons.min.js') }}" ></script>
+    <script src="https://cdn.tiny.cloud/1/pq1jwqi4q4yjuce8n3t2qqr9w4wz8z2m2rgihs4iyqkg2xm4/tinymce/5/tinymce.min.js"></script>
     <script src="{{ asset('js/app.js') }}" ></script>
 </body>
 </html>

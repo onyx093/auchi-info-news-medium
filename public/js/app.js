@@ -4951,6 +4951,1593 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
 
 /***/ }),
 
+/***/ "./node_modules/@material/select/component.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/select/component.js ***!
+  \****************************************************/
+/*! exports provided: MDCSelect */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSelect", function() { return MDCSelect; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_floating_label_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/floating-label/component */ "./node_modules/@material/floating-label/component.js");
+/* harmony import */ var _material_line_ripple_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/line-ripple/component */ "./node_modules/@material/line-ripple/component.js");
+/* harmony import */ var _material_menu_surface_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/menu-surface/constants */ "./node_modules/@material/menu-surface/constants.js");
+/* harmony import */ var _material_menu_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/menu/component */ "./node_modules/@material/menu/component.js");
+/* harmony import */ var _material_menu_constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material/menu/constants */ "./node_modules/@material/menu/constants.js");
+/* harmony import */ var _material_notched_outline_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material/notched-outline/component */ "./node_modules/@material/notched-outline/component.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/ripple/component.js");
+/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/select/constants.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/select/foundation.js");
+/* harmony import */ var _helper_text_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./helper-text/component */ "./node_modules/@material/select/helper-text/component.js");
+/* harmony import */ var _icon_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./icon/component */ "./node_modules/@material/select/icon/component.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var VALIDATION_ATTR_WHITELIST = ['required', 'aria-required'];
+var MDCSelect = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCSelect, _super);
+    function MDCSelect() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCSelect.attachTo = function (root) {
+        return new MDCSelect(root);
+    };
+    MDCSelect.prototype.initialize = function (labelFactory, lineRippleFactory, outlineFactory, menuFactory, iconFactory, helperTextFactory) {
+        if (labelFactory === void 0) { labelFactory = function (el) { return new _material_floating_label_component__WEBPACK_IMPORTED_MODULE_2__["MDCFloatingLabel"](el); }; }
+        if (lineRippleFactory === void 0) { lineRippleFactory = function (el) { return new _material_line_ripple_component__WEBPACK_IMPORTED_MODULE_3__["MDCLineRipple"](el); }; }
+        if (outlineFactory === void 0) { outlineFactory = function (el) { return new _material_notched_outline_component__WEBPACK_IMPORTED_MODULE_7__["MDCNotchedOutline"](el); }; }
+        if (menuFactory === void 0) { menuFactory = function (el) { return new _material_menu_component__WEBPACK_IMPORTED_MODULE_5__["MDCMenu"](el); }; }
+        if (iconFactory === void 0) { iconFactory = function (el) { return new _icon_component__WEBPACK_IMPORTED_MODULE_13__["MDCSelectIcon"](el); }; }
+        if (helperTextFactory === void 0) { helperTextFactory = function (el) { return new _helper_text_component__WEBPACK_IMPORTED_MODULE_12__["MDCSelectHelperText"](el); }; }
+        this.isMenuOpen_ = false;
+        this.nativeControl_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].NATIVE_CONTROL_SELECTOR);
+        this.selectedText_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].SELECTED_TEXT_SELECTOR);
+        var targetElement = this.nativeControl_ || this.selectedText_;
+        if (!targetElement) {
+            throw new Error('MDCSelect: Missing required element: Exactly one of the following selectors must be present: ' +
+                ("'" + _constants__WEBPACK_IMPORTED_MODULE_10__["strings"].NATIVE_CONTROL_SELECTOR + "' or '" + _constants__WEBPACK_IMPORTED_MODULE_10__["strings"].SELECTED_TEXT_SELECTOR + "'"));
+        }
+        this.targetElement_ = targetElement;
+        if (this.targetElement_.hasAttribute(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].ARIA_CONTROLS)) {
+            var helperTextElement = document.getElementById(this.targetElement_.getAttribute(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].ARIA_CONTROLS));
+            if (helperTextElement) {
+                this.helperText_ = helperTextFactory(helperTextElement);
+            }
+        }
+        if (this.selectedText_) {
+            this.enhancedSelectSetup_(menuFactory);
+        }
+        var labelElement = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].LABEL_SELECTOR);
+        this.label_ = labelElement ? labelFactory(labelElement) : null;
+        var lineRippleElement = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].LINE_RIPPLE_SELECTOR);
+        this.lineRipple_ = lineRippleElement ? lineRippleFactory(lineRippleElement) : null;
+        var outlineElement = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].OUTLINE_SELECTOR);
+        this.outline_ = outlineElement ? outlineFactory(outlineElement) : null;
+        var leadingIcon = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].LEADING_ICON_SELECTOR);
+        if (leadingIcon) {
+            this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].WITH_LEADING_ICON);
+            this.leadingIcon_ = iconFactory(leadingIcon);
+            if (this.menuElement_) {
+                this.menuElement_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].WITH_LEADING_ICON);
+            }
+        }
+        if (!this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].OUTLINED)) {
+            this.ripple = this.createRipple_();
+        }
+        // The required state needs to be sync'd before the mutation observer is added.
+        this.initialSyncRequiredState_();
+        this.addMutationObserverForRequired_();
+    };
+    /**
+     * Initializes the select's event listeners and internal state based
+     * on the environment's state.
+     */
+    MDCSelect.prototype.initialSyncWithDOM = function () {
+        var _this = this;
+        this.handleChange_ = function () { return _this.foundation_.handleChange(/* didChange */ true); };
+        this.handleFocus_ = function () { return _this.foundation_.handleFocus(); };
+        this.handleBlur_ = function () { return _this.foundation_.handleBlur(); };
+        this.handleClick_ = function (evt) {
+            if (_this.selectedText_) {
+                _this.selectedText_.focus();
+            }
+            _this.foundation_.handleClick(_this.getNormalizedXCoordinate_(evt));
+        };
+        this.handleKeydown_ = function (evt) { return _this.foundation_.handleKeydown(evt); };
+        this.handleMenuSelected_ = function (evtData) { return _this.selectedIndex = evtData.detail.index; };
+        this.handleMenuOpened_ = function () {
+            _this.foundation_.handleMenuOpened();
+            if (_this.menu_.items.length === 0) {
+                return;
+            }
+            // Menu should open to the last selected element, should open to first menu item otherwise.
+            var focusItemIndex = _this.selectedIndex >= 0 ? _this.selectedIndex : 0;
+            var focusItemEl = _this.menu_.items[focusItemIndex];
+            focusItemEl.focus();
+        };
+        this.handleMenuClosed_ = function () {
+            _this.foundation_.handleMenuClosed();
+            // isMenuOpen_ is used to track the state of the menu opening or closing since the menu.open function
+            // will return false if the menu is still closing and this method listens to the closed event which
+            // occurs after the menu is already closed.
+            _this.isMenuOpen_ = false;
+            _this.selectedText_.removeAttribute('aria-expanded');
+            if (document.activeElement !== _this.selectedText_) {
+                _this.foundation_.handleBlur();
+            }
+        };
+        this.targetElement_.addEventListener('change', this.handleChange_);
+        this.targetElement_.addEventListener('focus', this.handleFocus_);
+        this.targetElement_.addEventListener('blur', this.handleBlur_);
+        this.targetElement_.addEventListener('click', this.handleClick_);
+        if (this.menuElement_) {
+            this.selectedText_.addEventListener('keydown', this.handleKeydown_);
+            this.menu_.listen(_material_menu_surface_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].CLOSED_EVENT, this.handleMenuClosed_);
+            this.menu_.listen(_material_menu_surface_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].OPENED_EVENT, this.handleMenuOpened_);
+            this.menu_.listen(_material_menu_constants__WEBPACK_IMPORTED_MODULE_6__["strings"].SELECTED_EVENT, this.handleMenuSelected_);
+            if (this.hiddenInput_ && this.hiddenInput_.value) {
+                // If the hidden input already has a value, use it to restore the select's value.
+                // This can happen e.g. if the user goes back or (in some browsers) refreshes the page.
+                var enhancedAdapterMethods = this.getEnhancedSelectAdapterMethods_();
+                enhancedAdapterMethods.setValue(this.hiddenInput_.value);
+            }
+            else if (this.menuElement_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].SELECTED_ITEM_SELECTOR)) {
+                // If an element is selected, the select should set the initial selected text.
+                var enhancedAdapterMethods = this.getEnhancedSelectAdapterMethods_();
+                enhancedAdapterMethods.setValue(enhancedAdapterMethods.getValue());
+            }
+        }
+        // Initially sync floating label
+        this.foundation_.handleChange(/* didChange */ false);
+        if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].DISABLED)
+            || (this.nativeControl_ && this.nativeControl_.disabled)) {
+            this.disabled = true;
+        }
+    };
+    MDCSelect.prototype.destroy = function () {
+        this.targetElement_.removeEventListener('change', this.handleChange_);
+        this.targetElement_.removeEventListener('focus', this.handleFocus_);
+        this.targetElement_.removeEventListener('blur', this.handleBlur_);
+        this.targetElement_.removeEventListener('keydown', this.handleKeydown_);
+        this.targetElement_.removeEventListener('click', this.handleClick_);
+        if (this.menu_) {
+            this.menu_.unlisten(_material_menu_surface_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].CLOSED_EVENT, this.handleMenuClosed_);
+            this.menu_.unlisten(_material_menu_surface_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].OPENED_EVENT, this.handleMenuOpened_);
+            this.menu_.unlisten(_material_menu_constants__WEBPACK_IMPORTED_MODULE_6__["strings"].SELECTED_EVENT, this.handleMenuSelected_);
+            this.menu_.destroy();
+        }
+        if (this.ripple) {
+            this.ripple.destroy();
+        }
+        if (this.outline_) {
+            this.outline_.destroy();
+        }
+        if (this.leadingIcon_) {
+            this.leadingIcon_.destroy();
+        }
+        if (this.helperText_) {
+            this.helperText_.destroy();
+        }
+        if (this.validationObserver_) {
+            this.validationObserver_.disconnect();
+        }
+        _super.prototype.destroy.call(this);
+    };
+    Object.defineProperty(MDCSelect.prototype, "value", {
+        get: function () {
+            return this.foundation_.getValue();
+        },
+        set: function (value) {
+            this.foundation_.setValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelect.prototype, "selectedIndex", {
+        get: function () {
+            var selectedIndex = -1;
+            if (this.menuElement_ && this.menu_) {
+                var selectedEl = this.menuElement_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].SELECTED_ITEM_SELECTOR);
+                selectedIndex = this.menu_.items.indexOf(selectedEl);
+            }
+            else if (this.nativeControl_) {
+                selectedIndex = this.nativeControl_.selectedIndex;
+            }
+            return selectedIndex;
+        },
+        set: function (selectedIndex) {
+            this.foundation_.setSelectedIndex(selectedIndex);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelect.prototype, "disabled", {
+        get: function () {
+            return this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].DISABLED) ||
+                (this.nativeControl_ ? this.nativeControl_.disabled : false);
+        },
+        set: function (disabled) {
+            this.foundation_.setDisabled(disabled);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelect.prototype, "leadingIconAriaLabel", {
+        set: function (label) {
+            this.foundation_.setLeadingIconAriaLabel(label);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelect.prototype, "leadingIconContent", {
+        /**
+         * Sets the text content of the leading icon.
+         */
+        set: function (content) {
+            this.foundation_.setLeadingIconContent(content);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelect.prototype, "helperTextContent", {
+        /**
+         * Sets the text content of the helper text.
+         */
+        set: function (content) {
+            this.foundation_.setHelperTextContent(content);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelect.prototype, "valid", {
+        /**
+         * Checks if the select is in a valid state.
+         */
+        get: function () {
+            return this.foundation_.isValid();
+        },
+        /**
+         * Sets the current invalid state of the select.
+         */
+        set: function (isValid) {
+            this.foundation_.setValid(isValid);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelect.prototype, "required", {
+        /**
+         * Returns whether the select is required.
+         */
+        get: function () {
+            if (this.nativeControl_) {
+                return this.nativeControl_.required;
+            }
+            else {
+                return this.selectedText_.getAttribute('aria-required') === 'true';
+            }
+        },
+        /**
+         * Sets the control to the required state.
+         */
+        set: function (isRequired) {
+            if (this.nativeControl_) {
+                this.nativeControl_.required = isRequired;
+            }
+            else {
+                if (isRequired) {
+                    this.selectedText_.setAttribute('aria-required', isRequired.toString());
+                }
+                else {
+                    this.selectedText_.removeAttribute('aria-required');
+                }
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Recomputes the outline SVG path for the outline element.
+     */
+    MDCSelect.prototype.layout = function () {
+        this.foundation_.layout();
+    };
+    MDCSelect.prototype.getDefaultFoundation = function () {
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        var adapter = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, (this.nativeControl_ ? this.getNativeSelectAdapterMethods_() : this.getEnhancedSelectAdapterMethods_()), this.getCommonAdapterMethods_(), this.getOutlineAdapterMethods_(), this.getLabelAdapterMethods_());
+        return new _foundation__WEBPACK_IMPORTED_MODULE_11__["MDCSelectFoundation"](adapter, this.getFoundationMap_());
+    };
+    /**
+     * Handles setup for the enhanced menu.
+     */
+    MDCSelect.prototype.enhancedSelectSetup_ = function (menuFactory) {
+        var isDisabled = this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].DISABLED);
+        this.selectedText_.setAttribute('tabindex', isDisabled ? '-1' : '0');
+        this.hiddenInput_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].HIDDEN_INPUT_SELECTOR);
+        this.menuElement_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].MENU_SELECTOR);
+        this.menu_ = menuFactory(this.menuElement_);
+        this.menu_.hoistMenuToBody();
+        this.menu_.setAnchorElement(this.root_);
+        this.menu_.setAnchorCorner(_material_menu_surface_constants__WEBPACK_IMPORTED_MODULE_4__["Corner"].BOTTOM_START);
+        this.menu_.wrapFocus = false;
+    };
+    MDCSelect.prototype.createRipple_ = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, _material_ripple_component__WEBPACK_IMPORTED_MODULE_8__["MDCRipple"].createAdapter(this), { registerInteractionHandler: function (evtType, handler) { return _this.targetElement_.addEventListener(evtType, handler); }, deregisterInteractionHandler: function (evtType, handler) { return _this.targetElement_.removeEventListener(evtType, handler); } });
+        // tslint:enable:object-literal-sort-keys
+        return new _material_ripple_component__WEBPACK_IMPORTED_MODULE_8__["MDCRipple"](this.root_, new _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_9__["MDCRippleFoundation"](adapter));
+    };
+    MDCSelect.prototype.getNativeSelectAdapterMethods_ = function () {
+        var _this = this;
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        return {
+            getValue: function () { return _this.nativeControl_.value; },
+            setValue: function (value) {
+                _this.nativeControl_.value = value;
+            },
+            openMenu: function () { return undefined; },
+            closeMenu: function () { return undefined; },
+            isMenuOpen: function () { return false; },
+            setSelectedIndex: function (index) {
+                _this.nativeControl_.selectedIndex = index;
+            },
+            setDisabled: function (isDisabled) {
+                _this.nativeControl_.disabled = isDisabled;
+            },
+            setValid: function (isValid) {
+                if (isValid) {
+                    _this.root_.classList.remove(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].INVALID);
+                }
+                else {
+                    _this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].INVALID);
+                }
+            },
+            checkValidity: function () { return _this.nativeControl_.checkValidity(); },
+        };
+        // tslint:enable:object-literal-sort-keys
+    };
+    MDCSelect.prototype.getEnhancedSelectAdapterMethods_ = function () {
+        var _this = this;
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        return {
+            getValue: function () {
+                var listItem = _this.menuElement_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].SELECTED_ITEM_SELECTOR);
+                if (listItem && listItem.hasAttribute(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].ENHANCED_VALUE_ATTR)) {
+                    return listItem.getAttribute(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].ENHANCED_VALUE_ATTR) || '';
+                }
+                return '';
+            },
+            setValue: function (value) {
+                var element = _this.menuElement_.querySelector("[" + _constants__WEBPACK_IMPORTED_MODULE_10__["strings"].ENHANCED_VALUE_ATTR + "=\"" + value + "\"]");
+                _this.setEnhancedSelectedIndex_(element ? _this.menu_.items.indexOf(element) : -1);
+            },
+            openMenu: function () {
+                if (_this.menu_ && !_this.menu_.open) {
+                    _this.menu_.open = true;
+                    _this.isMenuOpen_ = true;
+                    _this.selectedText_.setAttribute('aria-expanded', 'true');
+                }
+            },
+            closeMenu: function () {
+                if (_this.menu_ && _this.menu_.open) {
+                    _this.menu_.open = false;
+                }
+            },
+            isMenuOpen: function () { return Boolean(_this.menu_) && _this.isMenuOpen_; },
+            setSelectedIndex: function (index) { return _this.setEnhancedSelectedIndex_(index); },
+            setDisabled: function (isDisabled) {
+                _this.selectedText_.setAttribute('tabindex', isDisabled ? '-1' : '0');
+                _this.selectedText_.setAttribute('aria-disabled', isDisabled.toString());
+                if (_this.hiddenInput_) {
+                    _this.hiddenInput_.disabled = isDisabled;
+                }
+            },
+            checkValidity: function () {
+                var classList = _this.root_.classList;
+                if (classList.contains(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].REQUIRED) && !classList.contains(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].DISABLED)) {
+                    // See notes for required attribute under https://www.w3.org/TR/html52/sec-forms.html#the-select-element
+                    // TL;DR: Invalid if no index is selected, or if the first index is selected and has an empty value.
+                    return _this.selectedIndex !== -1 && (_this.selectedIndex !== 0 || Boolean(_this.value));
+                }
+                else {
+                    return true;
+                }
+            },
+            setValid: function (isValid) {
+                _this.selectedText_.setAttribute('aria-invalid', (!isValid).toString());
+                if (isValid) {
+                    _this.root_.classList.remove(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].INVALID);
+                }
+                else {
+                    _this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].INVALID);
+                }
+            },
+        };
+        // tslint:enable:object-literal-sort-keys
+    };
+    MDCSelect.prototype.getCommonAdapterMethods_ = function () {
+        var _this = this;
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        return {
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            setRippleCenter: function (normalizedX) { return _this.lineRipple_ && _this.lineRipple_.setRippleCenter(normalizedX); },
+            activateBottomLine: function () { return _this.lineRipple_ && _this.lineRipple_.activate(); },
+            deactivateBottomLine: function () { return _this.lineRipple_ && _this.lineRipple_.deactivate(); },
+            notifyChange: function (value) {
+                var index = _this.selectedIndex;
+                _this.emit(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].CHANGE_EVENT, { value: value, index: index }, true /* shouldBubble  */);
+            },
+        };
+        // tslint:enable:object-literal-sort-keys
+    };
+    MDCSelect.prototype.getOutlineAdapterMethods_ = function () {
+        var _this = this;
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        return {
+            hasOutline: function () { return Boolean(_this.outline_); },
+            notchOutline: function (labelWidth) { return _this.outline_ && _this.outline_.notch(labelWidth); },
+            closeOutline: function () { return _this.outline_ && _this.outline_.closeNotch(); },
+        };
+        // tslint:enable:object-literal-sort-keys
+    };
+    MDCSelect.prototype.getLabelAdapterMethods_ = function () {
+        var _this = this;
+        return {
+            floatLabel: function (shouldFloat) { return _this.label_ && _this.label_.float(shouldFloat); },
+            getLabelWidth: function () { return _this.label_ ? _this.label_.getWidth() : 0; },
+        };
+    };
+    /**
+     * Calculates where the line ripple should start based on the x coordinate within the component.
+     */
+    MDCSelect.prototype.getNormalizedXCoordinate_ = function (evt) {
+        var targetClientRect = evt.target.getBoundingClientRect();
+        var xCoordinate = this.isTouchEvent_(evt) ? evt.touches[0].clientX : evt.clientX;
+        return xCoordinate - targetClientRect.left;
+    };
+    MDCSelect.prototype.isTouchEvent_ = function (evt) {
+        return Boolean(evt.touches);
+    };
+    /**
+     * Returns a map of all subcomponents to subfoundations.
+     */
+    MDCSelect.prototype.getFoundationMap_ = function () {
+        return {
+            helperText: this.helperText_ ? this.helperText_.foundation : undefined,
+            leadingIcon: this.leadingIcon_ ? this.leadingIcon_.foundation : undefined,
+        };
+    };
+    MDCSelect.prototype.setEnhancedSelectedIndex_ = function (index) {
+        var selectedItem = this.menu_.items[index];
+        this.selectedText_.textContent = selectedItem ? selectedItem.textContent.trim() : '';
+        var previouslySelected = this.menuElement_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].SELECTED_ITEM_SELECTOR);
+        if (previouslySelected) {
+            previouslySelected.classList.remove(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].SELECTED_ITEM_CLASS);
+            previouslySelected.removeAttribute(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].ARIA_SELECTED_ATTR);
+        }
+        if (selectedItem) {
+            selectedItem.classList.add(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].SELECTED_ITEM_CLASS);
+            selectedItem.setAttribute(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].ARIA_SELECTED_ATTR, 'true');
+        }
+        // Synchronize hidden input's value with data-value attribute of selected item.
+        // This code path is also followed when setting value directly, so this covers all cases.
+        if (this.hiddenInput_) {
+            this.hiddenInput_.value = selectedItem ? selectedItem.getAttribute(_constants__WEBPACK_IMPORTED_MODULE_10__["strings"].ENHANCED_VALUE_ATTR) || '' : '';
+        }
+        this.layout();
+    };
+    MDCSelect.prototype.initialSyncRequiredState_ = function () {
+        var isRequired = this.targetElement_.required
+            || this.targetElement_.getAttribute('aria-required') === 'true'
+            || this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].REQUIRED);
+        if (isRequired) {
+            if (this.nativeControl_) {
+                this.nativeControl_.required = true;
+            }
+            else {
+                this.selectedText_.setAttribute('aria-required', 'true');
+            }
+            this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].REQUIRED);
+        }
+    };
+    MDCSelect.prototype.addMutationObserverForRequired_ = function () {
+        var _this = this;
+        var observerHandler = function (attributesList) {
+            attributesList.some(function (attributeName) {
+                if (VALIDATION_ATTR_WHITELIST.indexOf(attributeName) === -1) {
+                    return false;
+                }
+                if (_this.selectedText_) {
+                    if (_this.selectedText_.getAttribute('aria-required') === 'true') {
+                        _this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].REQUIRED);
+                    }
+                    else {
+                        _this.root_.classList.remove(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].REQUIRED);
+                    }
+                }
+                else {
+                    if (_this.nativeControl_.required) {
+                        _this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].REQUIRED);
+                    }
+                    else {
+                        _this.root_.classList.remove(_constants__WEBPACK_IMPORTED_MODULE_10__["cssClasses"].REQUIRED);
+                    }
+                }
+                return true;
+            });
+        };
+        var getAttributesList = function (mutationsList) {
+            return mutationsList
+                .map(function (mutation) { return mutation.attributeName; })
+                .filter(function (attributeName) { return attributeName; });
+        };
+        var observer = new MutationObserver(function (mutationsList) { return observerHandler(getAttributesList(mutationsList)); });
+        observer.observe(this.targetElement_, { attributes: true });
+        this.validationObserver_ = observer;
+    };
+    return MDCSelect;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/constants.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/select/constants.js ***!
+  \****************************************************/
+/*! exports provided: cssClasses, strings, numbers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses = {
+    ACTIVATED: 'mdc-select--activated',
+    DISABLED: 'mdc-select--disabled',
+    FOCUSED: 'mdc-select--focused',
+    INVALID: 'mdc-select--invalid',
+    OUTLINED: 'mdc-select--outlined',
+    REQUIRED: 'mdc-select--required',
+    ROOT: 'mdc-select',
+    SELECTED_ITEM_CLASS: 'mdc-list-item--selected',
+    WITH_LEADING_ICON: 'mdc-select--with-leading-icon',
+};
+var strings = {
+    ARIA_CONTROLS: 'aria-controls',
+    ARIA_SELECTED_ATTR: 'aria-selected',
+    CHANGE_EVENT: 'MDCSelect:change',
+    ENHANCED_VALUE_ATTR: 'data-value',
+    HIDDEN_INPUT_SELECTOR: 'input[type="hidden"]',
+    LABEL_SELECTOR: '.mdc-floating-label',
+    LEADING_ICON_SELECTOR: '.mdc-select__icon',
+    LINE_RIPPLE_SELECTOR: '.mdc-line-ripple',
+    MENU_SELECTOR: '.mdc-select__menu',
+    NATIVE_CONTROL_SELECTOR: '.mdc-select__native-control',
+    OUTLINE_SELECTOR: '.mdc-notched-outline',
+    SELECTED_ITEM_SELECTOR: "." + cssClasses.SELECTED_ITEM_CLASS,
+    SELECTED_TEXT_SELECTOR: '.mdc-select__selected-text',
+};
+var numbers = {
+    LABEL_SCALE: 0.75,
+};
+
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/foundation.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/select/foundation.js ***!
+  \*****************************************************/
+/*! exports provided: MDCSelectFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSelectFoundation", function() { return MDCSelectFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/select/constants.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCSelectFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCSelectFoundation, _super);
+    /* istanbul ignore next: optional argument is not a branch statement */
+    /**
+     * @param adapter
+     * @param foundationMap Map from subcomponent names to their subfoundations.
+     */
+    function MDCSelectFoundation(adapter, foundationMap) {
+        if (foundationMap === void 0) { foundationMap = {}; }
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCSelectFoundation.defaultAdapter, adapter)) || this;
+        _this.leadingIcon_ = foundationMap.leadingIcon;
+        _this.helperText_ = foundationMap.helperText;
+        return _this;
+    }
+    Object.defineProperty(MDCSelectFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelectFoundation, "numbers", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelectFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelectFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCSelectAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                addClass: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                hasClass: function () { return false; },
+                activateBottomLine: function () { return undefined; },
+                deactivateBottomLine: function () { return undefined; },
+                setValue: function () { return undefined; },
+                getValue: function () { return ''; },
+                floatLabel: function () { return undefined; },
+                getLabelWidth: function () { return 0; },
+                hasOutline: function () { return false; },
+                notchOutline: function () { return undefined; },
+                closeOutline: function () { return undefined; },
+                openMenu: function () { return undefined; },
+                closeMenu: function () { return undefined; },
+                isMenuOpen: function () { return false; },
+                setSelectedIndex: function () { return undefined; },
+                setDisabled: function () { return undefined; },
+                setRippleCenter: function () { return undefined; },
+                notifyChange: function () { return undefined; },
+                checkValidity: function () { return false; },
+                setValid: function () { return undefined; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCSelectFoundation.prototype.setSelectedIndex = function (index) {
+        this.adapter_.setSelectedIndex(index);
+        this.adapter_.closeMenu();
+        var didChange = true;
+        this.handleChange(didChange);
+    };
+    MDCSelectFoundation.prototype.setValue = function (value) {
+        this.adapter_.setValue(value);
+        var didChange = true;
+        this.handleChange(didChange);
+    };
+    MDCSelectFoundation.prototype.getValue = function () {
+        return this.adapter_.getValue();
+    };
+    MDCSelectFoundation.prototype.setDisabled = function (isDisabled) {
+        if (isDisabled) {
+            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].DISABLED);
+        }
+        else {
+            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].DISABLED);
+        }
+        this.adapter_.setDisabled(isDisabled);
+        this.adapter_.closeMenu();
+        if (this.leadingIcon_) {
+            this.leadingIcon_.setDisabled(isDisabled);
+        }
+    };
+    /**
+     * @param content Sets the content of the helper text.
+     */
+    MDCSelectFoundation.prototype.setHelperTextContent = function (content) {
+        if (this.helperText_) {
+            this.helperText_.setContent(content);
+        }
+    };
+    MDCSelectFoundation.prototype.layout = function () {
+        var openNotch = this.getValue().length > 0;
+        this.notchOutline(openNotch);
+    };
+    MDCSelectFoundation.prototype.handleMenuOpened = function () {
+        this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].ACTIVATED);
+    };
+    MDCSelectFoundation.prototype.handleMenuClosed = function () {
+        this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].ACTIVATED);
+    };
+    /**
+     * Handles value changes, via change event or programmatic updates.
+     */
+    MDCSelectFoundation.prototype.handleChange = function (didChange) {
+        if (didChange === void 0) { didChange = true; }
+        var value = this.getValue();
+        var optionHasValue = value.length > 0;
+        var isRequired = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].REQUIRED);
+        this.notchOutline(optionHasValue);
+        if (!this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].FOCUSED)) {
+            this.adapter_.floatLabel(optionHasValue);
+        }
+        if (didChange) {
+            this.adapter_.notifyChange(value);
+            if (isRequired) {
+                this.setValid(this.isValid());
+                if (this.helperText_) {
+                    this.helperText_.setValidity(this.isValid());
+                }
+            }
+        }
+    };
+    /**
+     * Handles focus events from select element.
+     */
+    MDCSelectFoundation.prototype.handleFocus = function () {
+        this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].FOCUSED);
+        this.adapter_.floatLabel(true);
+        this.notchOutline(true);
+        this.adapter_.activateBottomLine();
+        if (this.helperText_) {
+            this.helperText_.showToScreenReader();
+        }
+    };
+    /**
+     * Handles blur events from select element.
+     */
+    MDCSelectFoundation.prototype.handleBlur = function () {
+        if (this.adapter_.isMenuOpen()) {
+            return;
+        }
+        this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].FOCUSED);
+        this.handleChange(false);
+        this.adapter_.deactivateBottomLine();
+        var isRequired = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].REQUIRED);
+        if (isRequired) {
+            this.setValid(this.isValid());
+            if (this.helperText_) {
+                this.helperText_.setValidity(this.isValid());
+            }
+        }
+    };
+    MDCSelectFoundation.prototype.handleClick = function (normalizedX) {
+        if (this.adapter_.isMenuOpen()) {
+            return;
+        }
+        this.adapter_.setRippleCenter(normalizedX);
+        this.adapter_.openMenu();
+    };
+    MDCSelectFoundation.prototype.handleKeydown = function (event) {
+        if (this.adapter_.isMenuOpen()) {
+            return;
+        }
+        var isEnter = event.key === 'Enter' || event.keyCode === 13;
+        var isSpace = event.key === 'Space' || event.keyCode === 32;
+        var arrowUp = event.key === 'ArrowUp' || event.keyCode === 38;
+        var arrowDown = event.key === 'ArrowDown' || event.keyCode === 40;
+        if (this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].FOCUSED) && (isEnter || isSpace || arrowUp || arrowDown)) {
+            this.adapter_.openMenu();
+            event.preventDefault();
+        }
+    };
+    /**
+     * Opens/closes the notched outline.
+     */
+    MDCSelectFoundation.prototype.notchOutline = function (openNotch) {
+        if (!this.adapter_.hasOutline()) {
+            return;
+        }
+        var isFocused = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].FOCUSED);
+        if (openNotch) {
+            var labelScale = _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"].LABEL_SCALE;
+            var labelWidth = this.adapter_.getLabelWidth() * labelScale;
+            this.adapter_.notchOutline(labelWidth);
+        }
+        else if (!isFocused) {
+            this.adapter_.closeOutline();
+        }
+    };
+    /**
+     * Sets the aria label of the leading icon.
+     */
+    MDCSelectFoundation.prototype.setLeadingIconAriaLabel = function (label) {
+        if (this.leadingIcon_) {
+            this.leadingIcon_.setAriaLabel(label);
+        }
+    };
+    /**
+     * Sets the text content of the leading icon.
+     */
+    MDCSelectFoundation.prototype.setLeadingIconContent = function (content) {
+        if (this.leadingIcon_) {
+            this.leadingIcon_.setContent(content);
+        }
+    };
+    MDCSelectFoundation.prototype.setValid = function (isValid) {
+        this.adapter_.setValid(isValid);
+    };
+    MDCSelectFoundation.prototype.isValid = function () {
+        return this.adapter_.checkValidity();
+    };
+    return MDCSelectFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCSelectFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/helper-text/component.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@material/select/helper-text/component.js ***!
+  \****************************************************************/
+/*! exports provided: MDCSelectHelperText */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSelectHelperText", function() { return MDCSelectHelperText; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/select/helper-text/foundation.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCSelectHelperText = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCSelectHelperText, _super);
+    function MDCSelectHelperText() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCSelectHelperText.attachTo = function (root) {
+        return new MDCSelectHelperText(root);
+    };
+    Object.defineProperty(MDCSelectHelperText.prototype, "foundation", {
+        get: function () {
+            return this.foundation_;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCSelectHelperText.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = {
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            setAttr: function (attr, value) { return _this.root_.setAttribute(attr, value); },
+            removeAttr: function (attr) { return _this.root_.removeAttribute(attr); },
+            setContent: function (content) {
+                _this.root_.textContent = content;
+            },
+        };
+        // tslint:enable:object-literal-sort-keys
+        return new _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCSelectHelperTextFoundation"](adapter);
+    };
+    return MDCSelectHelperText;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/helper-text/constants.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@material/select/helper-text/constants.js ***!
+  \****************************************************************/
+/*! exports provided: strings, cssClasses */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var strings = {
+    ARIA_HIDDEN: 'aria-hidden',
+    ROLE: 'role',
+};
+var cssClasses = {
+    HELPER_TEXT_PERSISTENT: 'mdc-select-helper-text--persistent',
+    HELPER_TEXT_VALIDATION_MSG: 'mdc-select-helper-text--validation-msg',
+};
+
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/helper-text/foundation.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@material/select/helper-text/foundation.js ***!
+  \*****************************************************************/
+/*! exports provided: MDCSelectHelperTextFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSelectHelperTextFoundation", function() { return MDCSelectHelperTextFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/select/helper-text/constants.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCSelectHelperTextFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCSelectHelperTextFoundation, _super);
+    function MDCSelectHelperTextFoundation(adapter) {
+        return _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCSelectHelperTextFoundation.defaultAdapter, adapter)) || this;
+    }
+    Object.defineProperty(MDCSelectHelperTextFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelectHelperTextFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelectHelperTextFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCSelectHelperTextAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                addClass: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                hasClass: function () { return false; },
+                setAttr: function () { return undefined; },
+                removeAttr: function () { return undefined; },
+                setContent: function () { return undefined; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Sets the content of the helper text field.
+     */
+    MDCSelectHelperTextFoundation.prototype.setContent = function (content) {
+        this.adapter_.setContent(content);
+    };
+    /**
+     *  Sets the persistency of the helper text.
+     */
+    MDCSelectHelperTextFoundation.prototype.setPersistent = function (isPersistent) {
+        if (isPersistent) {
+            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_PERSISTENT);
+        }
+        else {
+            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_PERSISTENT);
+        }
+    };
+    /**
+     * @param isValidation True to make the helper text act as an error validation message.
+     */
+    MDCSelectHelperTextFoundation.prototype.setValidation = function (isValidation) {
+        if (isValidation) {
+            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_VALIDATION_MSG);
+        }
+        else {
+            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_VALIDATION_MSG);
+        }
+    };
+    /**
+     * Makes the helper text visible to screen readers.
+     */
+    MDCSelectHelperTextFoundation.prototype.showToScreenReader = function () {
+        this.adapter_.removeAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ARIA_HIDDEN);
+    };
+    /**
+     * Sets the validity of the helper text based on the select validity.
+     */
+    MDCSelectHelperTextFoundation.prototype.setValidity = function (selectIsValid) {
+        var helperTextIsPersistent = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_PERSISTENT);
+        var helperTextIsValidationMsg = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_VALIDATION_MSG);
+        var validationMsgNeedsDisplay = helperTextIsValidationMsg && !selectIsValid;
+        if (validationMsgNeedsDisplay) {
+            this.adapter_.setAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ROLE, 'alert');
+        }
+        else {
+            this.adapter_.removeAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ROLE);
+        }
+        if (!helperTextIsPersistent && !validationMsgNeedsDisplay) {
+            this.hide_();
+        }
+    };
+    /**
+     * Hides the help text from screen readers.
+     */
+    MDCSelectHelperTextFoundation.prototype.hide_ = function () {
+        this.adapter_.setAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ARIA_HIDDEN, 'true');
+    };
+    return MDCSelectHelperTextFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCSelectHelperTextFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/helper-text/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@material/select/helper-text/index.js ***!
+  \************************************************************/
+/*! exports provided: helperTextCssClasses, helperTextStrings, MDCSelectHelperText, MDCSelectHelperTextFoundation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/select/helper-text/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelectHelperText", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCSelectHelperText"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/select/helper-text/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelectHelperTextFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCSelectHelperTextFoundation"]; });
+
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/select/helper-text/constants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "helperTextCssClasses", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "helperTextStrings", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/icon/component.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material/select/icon/component.js ***!
+  \*********************************************************/
+/*! exports provided: MDCSelectIcon */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSelectIcon", function() { return MDCSelectIcon; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/select/icon/foundation.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCSelectIcon = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCSelectIcon, _super);
+    function MDCSelectIcon() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCSelectIcon.attachTo = function (root) {
+        return new MDCSelectIcon(root);
+    };
+    Object.defineProperty(MDCSelectIcon.prototype, "foundation", {
+        get: function () {
+            return this.foundation_;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCSelectIcon.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = {
+            getAttr: function (attr) { return _this.root_.getAttribute(attr); },
+            setAttr: function (attr, value) { return _this.root_.setAttribute(attr, value); },
+            removeAttr: function (attr) { return _this.root_.removeAttribute(attr); },
+            setContent: function (content) {
+                _this.root_.textContent = content;
+            },
+            registerInteractionHandler: function (evtType, handler) { return _this.listen(evtType, handler); },
+            deregisterInteractionHandler: function (evtType, handler) { return _this.unlisten(evtType, handler); },
+            notifyIconAction: function () { return _this.emit(_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCSelectIconFoundation"].strings.ICON_EVENT, {} /* evtData */, true /* shouldBubble */); },
+        };
+        // tslint:enable:object-literal-sort-keys
+        return new _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCSelectIconFoundation"](adapter);
+    };
+    return MDCSelectIcon;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/icon/constants.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material/select/icon/constants.js ***!
+  \*********************************************************/
+/*! exports provided: strings */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var strings = {
+    ICON_EVENT: 'MDCSelect:icon',
+    ICON_ROLE: 'button',
+};
+
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/icon/foundation.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@material/select/icon/foundation.js ***!
+  \**********************************************************/
+/*! exports provided: MDCSelectIconFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSelectIconFoundation", function() { return MDCSelectIconFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/select/icon/constants.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var INTERACTION_EVENTS = ['click', 'keydown'];
+var MDCSelectIconFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCSelectIconFoundation, _super);
+    function MDCSelectIconFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCSelectIconFoundation.defaultAdapter, adapter)) || this;
+        _this.savedTabIndex_ = null;
+        _this.interactionHandler_ = function (evt) { return _this.handleInteraction(evt); };
+        return _this;
+    }
+    Object.defineProperty(MDCSelectIconFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCSelectIconFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCSelectIconAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                getAttr: function () { return null; },
+                setAttr: function () { return undefined; },
+                removeAttr: function () { return undefined; },
+                setContent: function () { return undefined; },
+                registerInteractionHandler: function () { return undefined; },
+                deregisterInteractionHandler: function () { return undefined; },
+                notifyIconAction: function () { return undefined; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCSelectIconFoundation.prototype.init = function () {
+        var _this = this;
+        this.savedTabIndex_ = this.adapter_.getAttr('tabindex');
+        INTERACTION_EVENTS.forEach(function (evtType) {
+            _this.adapter_.registerInteractionHandler(evtType, _this.interactionHandler_);
+        });
+    };
+    MDCSelectIconFoundation.prototype.destroy = function () {
+        var _this = this;
+        INTERACTION_EVENTS.forEach(function (evtType) {
+            _this.adapter_.deregisterInteractionHandler(evtType, _this.interactionHandler_);
+        });
+    };
+    MDCSelectIconFoundation.prototype.setDisabled = function (disabled) {
+        if (!this.savedTabIndex_) {
+            return;
+        }
+        if (disabled) {
+            this.adapter_.setAttr('tabindex', '-1');
+            this.adapter_.removeAttr('role');
+        }
+        else {
+            this.adapter_.setAttr('tabindex', this.savedTabIndex_);
+            this.adapter_.setAttr('role', _constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ICON_ROLE);
+        }
+    };
+    MDCSelectIconFoundation.prototype.setAriaLabel = function (label) {
+        this.adapter_.setAttr('aria-label', label);
+    };
+    MDCSelectIconFoundation.prototype.setContent = function (content) {
+        this.adapter_.setContent(content);
+    };
+    MDCSelectIconFoundation.prototype.handleInteraction = function (evt) {
+        var isEnterKey = evt.key === 'Enter' || evt.keyCode === 13;
+        if (evt.type === 'click' || isEnterKey) {
+            this.adapter_.notifyIconAction();
+        }
+    };
+    return MDCSelectIconFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCSelectIconFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/icon/index.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/select/icon/index.js ***!
+  \*****************************************************/
+/*! exports provided: iconStrings, MDCSelectIcon, MDCSelectIconFoundation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/select/icon/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelectIcon", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCSelectIcon"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/select/icon/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelectIconFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCSelectIconFoundation"]; });
+
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/select/icon/constants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iconStrings", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/select/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/@material/select/index.js ***!
+  \************************************************/
+/*! exports provided: MDCSelect, cssClasses, strings, numbers, MDCSelectFoundation, helperTextCssClasses, helperTextStrings, iconStrings, MDCSelectHelperText, MDCSelectHelperTextFoundation, MDCSelectIcon, MDCSelectIconFoundation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/select/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelect", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCSelect"]; });
+
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/select/constants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["strings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return _constants__WEBPACK_IMPORTED_MODULE_1__["numbers"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/select/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelectFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCSelectFoundation"]; });
+
+/* harmony import */ var _helper_text_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper-text/index */ "./node_modules/@material/select/helper-text/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "helperTextCssClasses", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_3__["helperTextCssClasses"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "helperTextStrings", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_3__["helperTextStrings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelectHelperText", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_3__["MDCSelectHelperText"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelectHelperTextFoundation", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_3__["MDCSelectHelperTextFoundation"]; });
+
+/* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icon/index */ "./node_modules/@material/select/icon/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iconStrings", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_4__["iconStrings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelectIcon", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_4__["MDCSelectIcon"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSelectIconFoundation", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_4__["MDCSelectIconFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ "./node_modules/@material/tab-bar/component.js":
 /*!*****************************************************!*\
   !*** ./node_modules/@material/tab-bar/component.js ***!
@@ -7469,7 +9056,7 @@ var MDCTextFieldCharacterCounterFoundation = /** @class */ (function (_super) {
 /*!*********************************************************************!*\
   !*** ./node_modules/@material/textfield/character-counter/index.js ***!
   \*********************************************************************/
-/*! exports provided: MDCTextFieldCharacterCounter, MDCTextFieldCharacterCounterFoundation, characterCountCssClasses, characterCountStrings */
+/*! exports provided: characterCountCssClasses, characterCountStrings, MDCTextFieldCharacterCounter, MDCTextFieldCharacterCounterFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8824,7 +10411,7 @@ var MDCTextFieldHelperTextFoundation = /** @class */ (function (_super) {
 /*!***************************************************************!*\
   !*** ./node_modules/@material/textfield/helper-text/index.js ***!
   \***************************************************************/
-/*! exports provided: MDCTextFieldHelperText, MDCTextFieldHelperTextFoundation, helperTextCssClasses, helperTextStrings */
+/*! exports provided: helperTextCssClasses, helperTextStrings, MDCTextFieldHelperText, MDCTextFieldHelperTextFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9125,7 +10712,7 @@ var MDCTextFieldIconFoundation = /** @class */ (function (_super) {
 /*!********************************************************!*\
   !*** ./node_modules/@material/textfield/icon/index.js ***!
   \********************************************************/
-/*! exports provided: MDCTextFieldIcon, MDCTextFieldIconFoundation, iconCssClasses, iconStrings */
+/*! exports provided: iconCssClasses, iconStrings, MDCTextFieldIcon, MDCTextFieldIconFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9174,7 +10761,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./node_modules/@material/textfield/index.js ***!
   \***************************************************/
-/*! exports provided: MDCTextField, cssClasses, strings, numbers, VALIDATION_ATTR_WHITELIST, ALWAYS_FLOAT_TYPES, MDCTextFieldFoundation, MDCTextFieldCharacterCounter, MDCTextFieldCharacterCounterFoundation, characterCountCssClasses, characterCountStrings, MDCTextFieldHelperText, MDCTextFieldHelperTextFoundation, helperTextCssClasses, helperTextStrings, MDCTextFieldIcon, MDCTextFieldIconFoundation, iconCssClasses, iconStrings */
+/*! exports provided: MDCTextField, cssClasses, strings, numbers, VALIDATION_ATTR_WHITELIST, ALWAYS_FLOAT_TYPES, MDCTextFieldFoundation, characterCountCssClasses, characterCountStrings, helperTextCssClasses, helperTextStrings, iconCssClasses, iconStrings, MDCTextFieldCharacterCounter, MDCTextFieldCharacterCounterFoundation, MDCTextFieldHelperText, MDCTextFieldHelperTextFoundation, MDCTextFieldIcon, MDCTextFieldIconFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9197,31 +10784,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTextFieldFoundation"]; });
 
 /* harmony import */ var _character_counter_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./character-counter/index */ "./node_modules/@material/textfield/character-counter/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounter", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_3__["MDCTextFieldCharacterCounter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounterFoundation", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_3__["MDCTextFieldCharacterCounterFoundation"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "characterCountCssClasses", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_3__["characterCountCssClasses"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "characterCountStrings", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_3__["characterCountStrings"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounter", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_3__["MDCTextFieldCharacterCounter"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounterFoundation", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_3__["MDCTextFieldCharacterCounterFoundation"]; });
+
 /* harmony import */ var _helper_text_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helper-text/index */ "./node_modules/@material/textfield/helper-text/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperText", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_4__["MDCTextFieldHelperText"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperTextFoundation", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_4__["MDCTextFieldHelperTextFoundation"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "helperTextCssClasses", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_4__["helperTextCssClasses"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "helperTextStrings", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_4__["helperTextStrings"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperText", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_4__["MDCTextFieldHelperText"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperTextFoundation", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_4__["MDCTextFieldHelperTextFoundation"]; });
+
 /* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./icon/index */ "./node_modules/@material/textfield/icon/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIcon", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["MDCTextFieldIcon"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIconFoundation", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["MDCTextFieldIconFoundation"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iconCssClasses", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["iconCssClasses"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iconStrings", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["iconStrings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIcon", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["MDCTextFieldIcon"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIconFoundation", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_5__["MDCTextFieldIconFoundation"]; });
 
 /**
  * @license
@@ -28635,6 +30222,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_form_field__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/form-field */ "./node_modules/@material/form-field/index.js");
 /* harmony import */ var _material_checkbox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/checkbox */ "./node_modules/@material/checkbox/index.js");
 /* harmony import */ var _material_textfield_helper_text__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material/textfield/helper-text */ "./node_modules/@material/textfield/helper-text/index.js");
+/* harmony import */ var _material_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material/select */ "./node_modules/@material/select/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
 /**
  * First, we will load all of this project's Javascript utilities and other
  * dependencies. Then, we will be ready to develop a robust and powerful
@@ -28643,6 +30233,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
  // import {MDCMenuSurface} from '@material/menu-surface';
+
+
 
 
 
@@ -28670,6 +30262,12 @@ $(document).ready(function () {
   var checkbox = new _material_checkbox__WEBPACK_IMPORTED_MODULE_5__["MDCCheckbox"](document.querySelector('.mdc-checkbox'));
   var formField = new _material_form_field__WEBPACK_IMPORTED_MODULE_4__["MDCFormField"](document.querySelector('.mdc-form-field'));
   formField.input = checkbox;
+});
+$(document).on('change', '.states', function () {
+  var state = $(this).val();
+  axios.get('http://127.0.0.1/admin/lga/' + state).then(function (response) {
+    array.forEach(function (element) {});
+  });
 });
 /* (function(){
     

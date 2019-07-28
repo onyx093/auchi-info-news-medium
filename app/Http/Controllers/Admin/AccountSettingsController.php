@@ -4,9 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
+use App\Admin;
+use App\State;
+use App\LocalGovernmentArea;
 
 class AccountSettingsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +26,8 @@ class AccountSettingsController extends Controller
     public function index()
     {
         //
-        return view('admin.settings.index');
+        $admin = Admin::where('id', Auth::user()->id)->firstOrFail();
+        return view('admin.settings.index', compact('admin'));
     }
 
     /**
@@ -59,6 +71,9 @@ class AccountSettingsController extends Controller
     public function edit($id)
     {
         //
+        $admin = Admin::where('id', $id)->firstOrFail();
+        $states = State::all();
+        return view('admin.settings.edit', compact('admin', 'states'));
     }
 
     /**
@@ -82,5 +97,11 @@ class AccountSettingsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function loadLGA($id)
+    {
+        $lgas = LocalGovernmentArea::where('state_id', $id)->get();
+        dd($lga->name);
     }
 }
