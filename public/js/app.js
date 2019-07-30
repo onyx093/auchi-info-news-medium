@@ -912,6 +912,973 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/@material/chips/chip-set/component.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@material/chips/chip-set/component.js ***!
+  \************************************************************/
+/*! exports provided: MDCChipSet */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCChipSet", function() { return MDCChipSet; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _chip_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../chip/component */ "./node_modules/@material/chips/chip/component.js");
+/* harmony import */ var _chip_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../chip/foundation */ "./node_modules/@material/chips/chip/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/chips/chip-set/foundation.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+var _a = _chip_foundation__WEBPACK_IMPORTED_MODULE_3__["MDCChipFoundation"].strings, INTERACTION_EVENT = _a.INTERACTION_EVENT, SELECTION_EVENT = _a.SELECTION_EVENT, REMOVAL_EVENT = _a.REMOVAL_EVENT;
+var CHIP_SELECTOR = _foundation__WEBPACK_IMPORTED_MODULE_4__["MDCChipSetFoundation"].strings.CHIP_SELECTOR;
+var idCounter = 0;
+var MDCChipSet = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCChipSet, _super);
+    function MDCChipSet() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCChipSet.attachTo = function (root) {
+        return new MDCChipSet(root);
+    };
+    Object.defineProperty(MDCChipSet.prototype, "chips", {
+        get: function () {
+            return this.chips_.slice();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCChipSet.prototype, "selectedChipIds", {
+        /**
+         * @return An array of the IDs of all selected chips.
+         */
+        get: function () {
+            return this.foundation_.getSelectedChipIds();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param chipFactory A function which creates a new MDCChip.
+     */
+    MDCChipSet.prototype.initialize = function (chipFactory) {
+        if (chipFactory === void 0) { chipFactory = function (el) { return new _chip_component__WEBPACK_IMPORTED_MODULE_2__["MDCChip"](el); }; }
+        this.chipFactory_ = chipFactory;
+        this.chips_ = this.instantiateChips_(this.chipFactory_);
+    };
+    MDCChipSet.prototype.initialSyncWithDOM = function () {
+        var _this = this;
+        this.chips_.forEach(function (chip) {
+            if (chip.id && chip.selected) {
+                _this.foundation_.select(chip.id);
+            }
+        });
+        this.handleChipInteraction_ = function (evt) { return _this.foundation_.handleChipInteraction(evt.detail.chipId); };
+        this.handleChipSelection_ = function (evt) { return _this.foundation_.handleChipSelection(evt.detail.chipId, evt.detail.selected); };
+        this.handleChipRemoval_ = function (evt) { return _this.foundation_.handleChipRemoval(evt.detail.chipId); };
+        this.listen(INTERACTION_EVENT, this.handleChipInteraction_);
+        this.listen(SELECTION_EVENT, this.handleChipSelection_);
+        this.listen(REMOVAL_EVENT, this.handleChipRemoval_);
+    };
+    MDCChipSet.prototype.destroy = function () {
+        this.chips_.forEach(function (chip) {
+            chip.destroy();
+        });
+        this.unlisten(INTERACTION_EVENT, this.handleChipInteraction_);
+        this.unlisten(SELECTION_EVENT, this.handleChipSelection_);
+        this.unlisten(REMOVAL_EVENT, this.handleChipRemoval_);
+        _super.prototype.destroy.call(this);
+    };
+    /**
+     * Adds a new chip object to the chip set from the given chip element.
+     */
+    MDCChipSet.prototype.addChip = function (chipEl) {
+        chipEl.id = chipEl.id || "mdc-chip-" + ++idCounter;
+        this.chips_.push(this.chipFactory_(chipEl));
+    };
+    MDCChipSet.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        var adapter = {
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            removeChip: function (chipId) {
+                var index = _this.findChipIndex_(chipId);
+                if (index >= 0) {
+                    _this.chips_[index].destroy();
+                    _this.chips_.splice(index, 1);
+                }
+            },
+            setSelected: function (chipId, selected) {
+                var index = _this.findChipIndex_(chipId);
+                if (index >= 0) {
+                    _this.chips_[index].selected = selected;
+                }
+            },
+        };
+        return new _foundation__WEBPACK_IMPORTED_MODULE_4__["MDCChipSetFoundation"](adapter);
+    };
+    /**
+     * Instantiates chip components on all of the chip set's child chip elements.
+     */
+    MDCChipSet.prototype.instantiateChips_ = function (chipFactory) {
+        var chipElements = [].slice.call(this.root_.querySelectorAll(CHIP_SELECTOR));
+        return chipElements.map(function (el) {
+            el.id = el.id || "mdc-chip-" + ++idCounter;
+            return chipFactory(el);
+        });
+    };
+    /**
+     * Returns the index of the chip with the given id, or -1 if the chip does not exist.
+     */
+    MDCChipSet.prototype.findChipIndex_ = function (chipId) {
+        for (var i = 0; i < this.chips_.length; i++) {
+            if (this.chips_[i].id === chipId) {
+                return i;
+            }
+        }
+        return -1;
+    };
+    return MDCChipSet;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/chips/chip-set/constants.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@material/chips/chip-set/constants.js ***!
+  \************************************************************/
+/*! exports provided: strings, cssClasses */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var strings = {
+    CHIP_SELECTOR: '.mdc-chip',
+};
+var cssClasses = {
+    CHOICE: 'mdc-chip-set--choice',
+    FILTER: 'mdc-chip-set--filter',
+};
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/chips/chip-set/foundation.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@material/chips/chip-set/foundation.js ***!
+  \*************************************************************/
+/*! exports provided: MDCChipSetFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCChipSetFoundation", function() { return MDCChipSetFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/chips/chip-set/constants.js");
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCChipSetFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCChipSetFoundation, _super);
+    function MDCChipSetFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCChipSetFoundation.defaultAdapter, adapter)) || this;
+        /**
+         * The ids of the selected chips in the set. Only used for choice chip set or filter chip set.
+         */
+        _this.selectedChipIds_ = [];
+        return _this;
+    }
+    Object.defineProperty(MDCChipSetFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCChipSetFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCChipSetFoundation, "defaultAdapter", {
+        get: function () {
+            return {
+                hasClass: function () { return false; },
+                removeChip: function () { return undefined; },
+                setSelected: function () { return undefined; },
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Returns an array of the IDs of all selected chips.
+     */
+    MDCChipSetFoundation.prototype.getSelectedChipIds = function () {
+        return this.selectedChipIds_.slice();
+    };
+    /**
+     * Selects the chip with the given id. Deselects all other chips if the chip set is of the choice variant.
+     */
+    MDCChipSetFoundation.prototype.select = function (chipId) {
+        if (this.selectedChipIds_.indexOf(chipId) >= 0) {
+            return;
+        }
+        if (this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].CHOICE) && this.selectedChipIds_.length > 0) {
+            var previouslySelectedChip = this.selectedChipIds_[0];
+            this.selectedChipIds_.length = 0;
+            this.adapter_.setSelected(previouslySelectedChip, false);
+        }
+        this.selectedChipIds_.push(chipId);
+        this.adapter_.setSelected(chipId, true);
+    };
+    /**
+     * Handles a chip interaction event
+     */
+    MDCChipSetFoundation.prototype.handleChipInteraction = function (chipId) {
+        if (this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].CHOICE) || this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].FILTER)) {
+            this.toggleSelect_(chipId);
+        }
+    };
+    /**
+     * Handles a chip selection event, used to handle discrepancy when selection state is set directly on the Chip.
+     */
+    MDCChipSetFoundation.prototype.handleChipSelection = function (chipId, selected) {
+        var chipIsSelected = this.selectedChipIds_.indexOf(chipId) >= 0;
+        if (selected && !chipIsSelected) {
+            this.select(chipId);
+        }
+        else if (!selected && chipIsSelected) {
+            this.deselect_(chipId);
+        }
+    };
+    /**
+     * Handles the event when a chip is removed.
+     */
+    MDCChipSetFoundation.prototype.handleChipRemoval = function (chipId) {
+        this.deselect_(chipId);
+        this.adapter_.removeChip(chipId);
+    };
+    /**
+     * Deselects the chip with the given id.
+     */
+    MDCChipSetFoundation.prototype.deselect_ = function (chipId) {
+        var index = this.selectedChipIds_.indexOf(chipId);
+        if (index >= 0) {
+            this.selectedChipIds_.splice(index, 1);
+            this.adapter_.setSelected(chipId, false);
+        }
+    };
+    /**
+     * Toggles selection of the chip with the given id.
+     */
+    MDCChipSetFoundation.prototype.toggleSelect_ = function (chipId) {
+        if (this.selectedChipIds_.indexOf(chipId) >= 0) {
+            this.deselect_(chipId);
+        }
+        else {
+            this.select(chipId);
+        }
+    };
+    return MDCChipSetFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCChipSetFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/chips/chip-set/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@material/chips/chip-set/index.js ***!
+  \********************************************************/
+/*! exports provided: chipSetCssClasses, chipSetStrings, MDCChipSet, MDCChipSetFoundation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/chips/chip-set/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCChipSet", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCChipSet"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/chips/chip-set/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCChipSetFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCChipSetFoundation"]; });
+
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/chips/chip-set/constants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "chipSetCssClasses", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "chipSetStrings", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/chips/chip/component.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@material/chips/chip/component.js ***!
+  \********************************************************/
+/*! exports provided: MDCChip */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCChip", function() { return MDCChip; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/ripple/component.js");
+/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/chips/chip/constants.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/chips/chip/foundation.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+
+var INTERACTION_EVENTS = ['click', 'keydown'];
+var MDCChip = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCChip, _super);
+    function MDCChip() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(MDCChip.prototype, "selected", {
+        /**
+         * @return Whether the chip is selected.
+         */
+        get: function () {
+            return this.foundation_.isSelected();
+        },
+        /**
+         * Sets selected state on the chip.
+         */
+        set: function (selected) {
+            this.foundation_.setSelected(selected);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCChip.prototype, "shouldRemoveOnTrailingIconClick", {
+        /**
+         * @return Whether a trailing icon click should trigger exit/removal of the chip.
+         */
+        get: function () {
+            return this.foundation_.getShouldRemoveOnTrailingIconClick();
+        },
+        /**
+         * Sets whether a trailing icon click should trigger exit/removal of the chip.
+         */
+        set: function (shouldRemove) {
+            this.foundation_.setShouldRemoveOnTrailingIconClick(shouldRemove);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCChip.prototype, "ripple", {
+        get: function () {
+            return this.ripple_;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCChip.prototype, "id", {
+        get: function () {
+            return this.root_.id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCChip.attachTo = function (root) {
+        return new MDCChip(root);
+    };
+    MDCChip.prototype.initialize = function (rippleFactory) {
+        var _this = this;
+        if (rippleFactory === void 0) { rippleFactory = function (el, foundation) { return new _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"](el, foundation); }; }
+        this.leadingIcon_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].LEADING_ICON_SELECTOR);
+        this.trailingIcon_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].TRAILING_ICON_SELECTOR);
+        this.checkmark_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].CHECKMARK_SELECTOR);
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        var rippleAdapter = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"].createAdapter(this), { computeBoundingRect: function () { return _this.foundation_.getDimensions(); } });
+        this.ripple_ = rippleFactory(this.root_, new _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__["MDCRippleFoundation"](rippleAdapter));
+    };
+    MDCChip.prototype.initialSyncWithDOM = function () {
+        var _this = this;
+        this.handleInteraction_ = function (evt) { return _this.foundation_.handleInteraction(evt); };
+        this.handleTransitionEnd_ = function (evt) { return _this.foundation_.handleTransitionEnd(evt); };
+        this.handleTrailingIconInteraction_ = function (evt) {
+            return _this.foundation_.handleTrailingIconInteraction(evt);
+        };
+        INTERACTION_EVENTS.forEach(function (evtType) {
+            _this.listen(evtType, _this.handleInteraction_);
+        });
+        this.listen('transitionend', this.handleTransitionEnd_);
+        if (this.trailingIcon_) {
+            INTERACTION_EVENTS.forEach(function (evtType) {
+                _this.trailingIcon_.addEventListener(evtType, _this.handleTrailingIconInteraction_);
+            });
+        }
+    };
+    MDCChip.prototype.destroy = function () {
+        var _this = this;
+        this.ripple_.destroy();
+        INTERACTION_EVENTS.forEach(function (evtType) {
+            _this.unlisten(evtType, _this.handleInteraction_);
+        });
+        this.unlisten('transitionend', this.handleTransitionEnd_);
+        if (this.trailingIcon_) {
+            INTERACTION_EVENTS.forEach(function (evtType) {
+                _this.trailingIcon_.removeEventListener(evtType, _this.handleTrailingIconInteraction_);
+            });
+        }
+        _super.prototype.destroy.call(this);
+    };
+    /**
+     * Begins the exit animation which leads to removal of the chip.
+     */
+    MDCChip.prototype.beginExit = function () {
+        this.foundation_.beginExit();
+    };
+    MDCChip.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        var adapter = {
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            addClassToLeadingIcon: function (className) {
+                if (_this.leadingIcon_) {
+                    _this.leadingIcon_.classList.add(className);
+                }
+            },
+            eventTargetHasClass: function (target, className) { return target ? target.classList.contains(className) : false; },
+            getCheckmarkBoundingClientRect: function () { return _this.checkmark_ ? _this.checkmark_.getBoundingClientRect() : null; },
+            getComputedStyleValue: function (propertyName) { return window.getComputedStyle(_this.root_).getPropertyValue(propertyName); },
+            getRootBoundingClientRect: function () { return _this.root_.getBoundingClientRect(); },
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            hasLeadingIcon: function () { return !!_this.leadingIcon_; },
+            notifyInteraction: function () { return _this.emit(_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].INTERACTION_EVENT, { chipId: _this.id }, true /* shouldBubble */); },
+            notifyRemoval: function () { return _this.emit(_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].REMOVAL_EVENT, { chipId: _this.id, root: _this.root_ }, true /* shouldBubble */); },
+            notifySelection: function (selected) { return _this.emit(_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].SELECTION_EVENT, { chipId: _this.id, selected: selected }, true /* shouldBubble */); },
+            notifyTrailingIconInteraction: function () { return _this.emit(_constants__WEBPACK_IMPORTED_MODULE_4__["strings"].TRAILING_ICON_INTERACTION_EVENT, { chipId: _this.id }, true /* shouldBubble */); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            removeClassFromLeadingIcon: function (className) {
+                if (_this.leadingIcon_) {
+                    _this.leadingIcon_.classList.remove(className);
+                }
+            },
+            setAttr: function (attr, value) { return _this.root_.setAttribute(attr, value); },
+            setStyleProperty: function (propertyName, value) { return _this.root_.style.setProperty(propertyName, value); },
+        };
+        return new _foundation__WEBPACK_IMPORTED_MODULE_5__["MDCChipFoundation"](adapter);
+    };
+    return MDCChip;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/chips/chip/constants.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@material/chips/chip/constants.js ***!
+  \********************************************************/
+/*! exports provided: strings, cssClasses */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var strings = {
+    ARIA_CHECKED: 'aria-checked',
+    CHECKMARK_SELECTOR: '.mdc-chip__checkmark',
+    ENTRY_ANIMATION_NAME: 'mdc-chip-entry',
+    INTERACTION_EVENT: 'MDCChip:interaction',
+    LEADING_ICON_SELECTOR: '.mdc-chip__icon--leading',
+    REMOVAL_EVENT: 'MDCChip:removal',
+    SELECTION_EVENT: 'MDCChip:selection',
+    TRAILING_ICON_INTERACTION_EVENT: 'MDCChip:trailingIconInteraction',
+    TRAILING_ICON_SELECTOR: '.mdc-chip__icon--trailing',
+};
+var cssClasses = {
+    CHECKMARK: 'mdc-chip__checkmark',
+    CHIP_EXIT: 'mdc-chip--exit',
+    HIDDEN_LEADING_ICON: 'mdc-chip__icon--leading-hidden',
+    LEADING_ICON: 'mdc-chip__icon--leading',
+    SELECTED: 'mdc-chip--selected',
+    TRAILING_ICON: 'mdc-chip__icon--trailing',
+};
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/chips/chip/foundation.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material/chips/chip/foundation.js ***!
+  \*********************************************************/
+/*! exports provided: MDCChipFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCChipFoundation", function() { return MDCChipFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/chips/chip/constants.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var emptyClientRect = {
+    bottom: 0,
+    height: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+    width: 0,
+};
+var MDCChipFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCChipFoundation, _super);
+    function MDCChipFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCChipFoundation.defaultAdapter, adapter)) || this;
+        /**
+         * Whether a trailing icon click should immediately trigger exit/removal of the chip.
+         */
+        _this.shouldRemoveOnTrailingIconClick_ = true;
+        return _this;
+    }
+    Object.defineProperty(MDCChipFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCChipFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCChipFoundation, "defaultAdapter", {
+        get: function () {
+            return {
+                addClass: function () { return undefined; },
+                addClassToLeadingIcon: function () { return undefined; },
+                eventTargetHasClass: function () { return false; },
+                getCheckmarkBoundingClientRect: function () { return emptyClientRect; },
+                getComputedStyleValue: function () { return ''; },
+                getRootBoundingClientRect: function () { return emptyClientRect; },
+                hasClass: function () { return false; },
+                hasLeadingIcon: function () { return false; },
+                notifyInteraction: function () { return undefined; },
+                notifyRemoval: function () { return undefined; },
+                notifySelection: function () { return undefined; },
+                notifyTrailingIconInteraction: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                removeClassFromLeadingIcon: function () { return undefined; },
+                setAttr: function () { return undefined; },
+                setStyleProperty: function () { return undefined; },
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCChipFoundation.prototype.isSelected = function () {
+        return this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].SELECTED);
+    };
+    MDCChipFoundation.prototype.setSelected = function (selected) {
+        if (selected) {
+            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].SELECTED);
+            this.adapter_.setAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ARIA_CHECKED, 'true');
+        }
+        else {
+            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].SELECTED);
+            this.adapter_.setAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ARIA_CHECKED, 'false');
+        }
+        this.adapter_.notifySelection(selected);
+    };
+    MDCChipFoundation.prototype.getShouldRemoveOnTrailingIconClick = function () {
+        return this.shouldRemoveOnTrailingIconClick_;
+    };
+    MDCChipFoundation.prototype.setShouldRemoveOnTrailingIconClick = function (shouldRemove) {
+        this.shouldRemoveOnTrailingIconClick_ = shouldRemove;
+    };
+    MDCChipFoundation.prototype.getDimensions = function () {
+        var _this = this;
+        var getRootRect = function () { return _this.adapter_.getRootBoundingClientRect(); };
+        var getCheckmarkRect = function () { return _this.adapter_.getCheckmarkBoundingClientRect(); };
+        // When a chip has a checkmark and not a leading icon, the bounding rect changes in size depending on the current
+        // size of the checkmark.
+        if (!this.adapter_.hasLeadingIcon()) {
+            var checkmarkRect = getCheckmarkRect();
+            if (checkmarkRect) {
+                var rootRect = getRootRect();
+                // Checkmark is a square, meaning the client rect's width and height are identical once the animation completes.
+                // However, the checkbox is initially hidden by setting the width to 0.
+                // To account for an initial width of 0, we use the checkbox's height instead (which equals the end-state width)
+                // when adding it to the root client rect's width.
+                return {
+                    bottom: rootRect.bottom,
+                    height: rootRect.height,
+                    left: rootRect.left,
+                    right: rootRect.right,
+                    top: rootRect.top,
+                    width: rootRect.width + checkmarkRect.height,
+                };
+            }
+        }
+        return getRootRect();
+    };
+    /**
+     * Begins the exit animation which leads to removal of the chip.
+     */
+    MDCChipFoundation.prototype.beginExit = function () {
+        this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].CHIP_EXIT);
+    };
+    /**
+     * Handles an interaction event on the root element.
+     */
+    MDCChipFoundation.prototype.handleInteraction = function (evt) {
+        var isEnter = evt.key === 'Enter' || evt.keyCode === 13;
+        if (evt.type === 'click' || isEnter) {
+            this.adapter_.notifyInteraction();
+        }
+    };
+    /**
+     * Handles a transition end event on the root element.
+     */
+    MDCChipFoundation.prototype.handleTransitionEnd = function (evt) {
+        var _this = this;
+        // Handle transition end event on the chip when it is about to be removed.
+        if (this.adapter_.eventTargetHasClass(evt.target, _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].CHIP_EXIT)) {
+            if (evt.propertyName === 'width') {
+                this.adapter_.notifyRemoval();
+            }
+            else if (evt.propertyName === 'opacity') {
+                // See: https://css-tricks.com/using-css-transitions-auto-dimensions/#article-header-id-5
+                var chipWidth_1 = this.adapter_.getComputedStyleValue('width');
+                // On the next frame (once we get the computed width), explicitly set the chip's width
+                // to its current pixel width, so we aren't transitioning out of 'auto'.
+                requestAnimationFrame(function () {
+                    _this.adapter_.setStyleProperty('width', chipWidth_1);
+                    // To mitigate jitter, start transitioning padding and margin before width.
+                    _this.adapter_.setStyleProperty('padding', '0');
+                    _this.adapter_.setStyleProperty('margin', '0');
+                    // On the next frame (once width is explicitly set), transition width to 0.
+                    requestAnimationFrame(function () {
+                        _this.adapter_.setStyleProperty('width', '0');
+                    });
+                });
+            }
+            return;
+        }
+        // Handle a transition end event on the leading icon or checkmark, since the transition end event bubbles.
+        if (evt.propertyName !== 'opacity') {
+            return;
+        }
+        if (this.adapter_.eventTargetHasClass(evt.target, _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].LEADING_ICON) &&
+            this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].SELECTED)) {
+            this.adapter_.addClassToLeadingIcon(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HIDDEN_LEADING_ICON);
+        }
+        else if (this.adapter_.eventTargetHasClass(evt.target, _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].CHECKMARK) &&
+            !this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].SELECTED)) {
+            this.adapter_.removeClassFromLeadingIcon(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HIDDEN_LEADING_ICON);
+        }
+    };
+    /**
+     * Handles an interaction event on the trailing icon element. This is used to
+     * prevent the ripple from activating on interaction with the trailing icon.
+     */
+    MDCChipFoundation.prototype.handleTrailingIconInteraction = function (evt) {
+        var isEnter = evt.key === 'Enter' || evt.keyCode === 13;
+        evt.stopPropagation();
+        if (evt.type === 'click' || isEnter) {
+            this.adapter_.notifyTrailingIconInteraction();
+            if (this.shouldRemoveOnTrailingIconClick_) {
+                this.beginExit();
+            }
+        }
+    };
+    return MDCChipFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCChipFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/chips/chip/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/chips/chip/index.js ***!
+  \****************************************************/
+/*! exports provided: chipCssClasses, chipStrings, MDCChip, MDCChipFoundation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/chips/chip/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCChip", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCChip"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/chips/chip/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCChipFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCChipFoundation"]; });
+
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/chips/chip/constants.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "chipCssClasses", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "chipStrings", function() { return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/chips/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@material/chips/index.js ***!
+  \***********************************************/
+/*! exports provided: chipCssClasses, chipStrings, chipSetCssClasses, chipSetStrings, MDCChip, MDCChipFoundation, MDCChipSet, MDCChipSetFoundation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _chip_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chip/index */ "./node_modules/@material/chips/chip/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "chipCssClasses", function() { return _chip_index__WEBPACK_IMPORTED_MODULE_0__["chipCssClasses"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "chipStrings", function() { return _chip_index__WEBPACK_IMPORTED_MODULE_0__["chipStrings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCChip", function() { return _chip_index__WEBPACK_IMPORTED_MODULE_0__["MDCChip"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCChipFoundation", function() { return _chip_index__WEBPACK_IMPORTED_MODULE_0__["MDCChipFoundation"]; });
+
+/* harmony import */ var _chip_set_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chip-set/index */ "./node_modules/@material/chips/chip-set/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "chipSetCssClasses", function() { return _chip_set_index__WEBPACK_IMPORTED_MODULE_1__["chipSetCssClasses"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "chipSetStrings", function() { return _chip_set_index__WEBPACK_IMPORTED_MODULE_1__["chipSetStrings"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCChipSet", function() { return _chip_set_index__WEBPACK_IMPORTED_MODULE_1__["MDCChipSet"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCChipSetFoundation", function() { return _chip_set_index__WEBPACK_IMPORTED_MODULE_1__["MDCChipSetFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ "./node_modules/@material/dom/events.js":
 /*!**********************************************!*\
   !*** ./node_modules/@material/dom/events.js ***!
@@ -30223,8 +31190,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_checkbox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/checkbox */ "./node_modules/@material/checkbox/index.js");
 /* harmony import */ var _material_textfield_helper_text__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material/textfield/helper-text */ "./node_modules/@material/textfield/helper-text/index.js");
 /* harmony import */ var _material_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material/select */ "./node_modules/@material/select/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _material_chips__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material/chips */ "./node_modules/@material/chips/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
 /**
  * First, we will load all of this project's Javascript utilities and other
  * dependencies. Then, we will be ready to develop a robust and powerful
@@ -30233,6 +31201,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
  // import {MDCMenuSurface} from '@material/menu-surface';
+
 
 
 
@@ -30262,6 +31231,9 @@ $(document).ready(function () {
   var checkbox = new _material_checkbox__WEBPACK_IMPORTED_MODULE_5__["MDCCheckbox"](document.querySelector('.mdc-checkbox'));
   var formField = new _material_form_field__WEBPACK_IMPORTED_MODULE_4__["MDCFormField"](document.querySelector('.mdc-form-field'));
   formField.input = checkbox;
+  var chipSet = [].map.call(document.querySelectorAll('.mdc-chip-set'), function (el) {
+    return new _material_chips__WEBPACK_IMPORTED_MODULE_8__["MDCChipSet"](el);
+  });
 });
 $(document).on('change', '.states', function () {
   var state = $(this).val();

@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
+use App\Post;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -21,7 +25,8 @@ class PostController extends Controller
     public function index()
     {
         //
-        return view('admin.posts.index');
+        $my_posts = Post::myPosts(Auth::user()->id)->get();
+        return view('admin.posts.index', compact('my_posts'));
     }
 
     /**
@@ -32,6 +37,8 @@ class PostController extends Controller
     public function create()
     {
         //
+        $categories = Category::all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -43,6 +50,20 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, array(
+            'post_title' => 'required|min:10|max:150',
+            'category' => 'required',
+            'post_body' => 'required',
+        ));
+
+        $post = new Post;
+        $post->title = $request->post_title;
+        $post->category_id = $request->category;
+        $post->content = $request->post_body;
+        $post->admin_id = Auth::user()->id;
+        $post->save();
+        session()->flash('message', 'A new post has been created successfully');
+        return redirect()->route('posts.show', ['post_id' => $post->id ]);
     }
 
     /**
@@ -51,9 +72,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
         //
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -62,9 +84,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         //
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -74,9 +98,25 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $post)
     {
         //
+        session()->flash('message', 'Error!');
+        $this->validate($request, array(
+            'post_title' => 'required|min:10|max:150',
+            'category' => 'required',
+            'post_body' => 'required',
+        ));
+
+        $post = Post::find($post);
+        $post->title = $request->input('post_title');
+        $post->category_id = $request->input('category');
+        $post->content = $request->input('post_body');
+        $post->admin_id = Auth::user()->id;
+        $post->save();
+
+        session()->flash('message', 'The post was successfully updated!');
+        return redirect()->route('posts.show', ['post_id' => $post->id ]);
     }
 
     /**

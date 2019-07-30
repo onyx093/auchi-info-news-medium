@@ -23,8 +23,8 @@ class CreateAdminsTable extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('web_link')->nullable();
-            $table->string('lga')->nullable();
-            $table->string('state')->nullable();
+            $table->string('lga_id')->nullable();
+            $table->string('state_id')->nullable();
             $table->longText('description')->nullable();
             $table->string('facebook_link')->nullable();            
             $table->string('twitter_link')->nullable();            

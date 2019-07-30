@@ -11,4 +11,9 @@ class State extends Model
     {
         return $this->hasMany(LocalGovernmentArea::class);
     }
+
+    public function admins()
+    {
+        return $this->hasMany(Admin::class);
+    }
 }

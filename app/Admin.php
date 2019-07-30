@@ -51,4 +51,14 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function lga()
+    {
+        return $this->belongsTo(LocalGovernmentArea::class);
+    }
 }

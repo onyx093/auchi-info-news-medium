@@ -1,7 +1,7 @@
 <div class="sidebar">
     <div class="admin-user">
-        <img class="uk-border-circle uk-align-center uk-margin-small-top" width="120" height="120" src="{{ asset('img/photo22.jpg') }}">
-    <p class="uk-text-center uk-light mdc-typography--body1" >{{ Auth::user()->name }}</p>
+        <img class="uk-border-circle uk-align-center uk-margin-small-top uk-margin-small-bottom" width="80" height="80" src="{{ asset('img/photo22.jpg') }}">
+    <p class="uk-text-center uk-light mdc-typography--body1 uk-margin-small-top" >{{ Auth::user()->name }}</p>
     </div>
 
     <ul class="mdc-list admin-nav">
@@ -13,6 +13,12 @@
         </li>
         <li class="mdc-list-item {{ Route::currentRouteName() == 'page.categories' ? 'active' : '' }}">
             <span class="mdc-list-item__text"><a href="{{ route('page.categories') }}">Page categories</a></span>
+        </li>
+        <li class="mdc-list-item {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}">
+            <span class="mdc-list-item__text"><a href="{{ route('categories.index') }}">Categories</a></span>
+        </li>
+        <li class="mdc-list-item {{ Route::currentRouteName() == 'tags.index' ? 'active' : '' }}">
+            <span class="mdc-list-item__text"><a href="{{ route('tags.index') }}">Tags</a></span>
         </li>
         <li class="mdc-list-item {{ Route::currentRouteName() == 'posts.index' ? 'active' : '' }}">
             <span class="mdc-list-item__text"><a href="{{ route('posts.index') }}">Posts</a></span>
@@ -26,7 +32,7 @@
     </ul>
 
     <div class="logo-wrapper">
-        <img class="uk-border-rounded uk-align-center" width="120" height="120" src="{{ asset('img/logo.png') }}">
+        <img class="uk-border-rounded uk-align-center uk-margin-small-bottom" width="80" height="80" src="{{ asset('img/logo.png') }}">
     </div>
     <ul class="mdc-list admin-nav">
         <li class="mdc-list-item {{ Route::currentRouteName() == 'admin.logout' ? 'active' : '' }}">

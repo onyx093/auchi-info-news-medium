@@ -7,7 +7,7 @@
         <div class="mdc-layout-grid__cell--span-3">
             @include('admin.layouts.components.sidebar')
         </div>
-        <div class="mdc-layout-grid__cell--span-9"></div>
+        <div class="mdc-layout-grid__cell--span-9 admin-section"></div>
     </div>
 </div>
     

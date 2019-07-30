@@ -15,6 +15,7 @@ import {MDCFormField} from '@material/form-field';
 import {MDCCheckbox} from '@material/checkbox';
 import {MDCTextFieldHelperText} from '@material/textfield/helper-text';
 import {MDCSelect} from '@material/select';
+import {MDCChipSet} from '@material/chips';
 import Axios from "axios";
 
 $(document).ready(function(){
@@ -43,6 +44,11 @@ $(document).ready(function(){
     const formField = new MDCFormField(document.querySelector('.mdc-form-field'));
     formField.input = checkbox;
 
+    const chipSet = [].map.call(document.querySelectorAll('.mdc-chip-set'), function(el){
+        return new MDCChipSet(el);
+    });
+
+    
 
 
 });

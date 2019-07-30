@@ -7,7 +7,7 @@
         <div class="mdc-layout-grid__cell--span-3">
             @include('admin.layouts.components.sidebar')
         </div>
-        <div class="mdc-layout-grid__cell--span-9">
+        <div class="mdc-layout-grid__cell--span-9 admin-section">
 
             <p class="mdc-typography--headline3 uk-margin-remove-bottom">Account settings</p>
             <div class="mdc-layout-grid admin-portfolio">
@@ -32,7 +32,7 @@
                                     <p class="uk-h6 caption-header uk-margin-remove-bottom">Email:</p>
                                     <p class="uk-h6 uk-margin-remove-top">{{ $admin->email }}</p>
                                     <p class="uk-h6 caption-header uk-margin-remove-bottom">Location:</p>
-                                    <p class="uk-h6 uk-margin-remove-top">{{ $admin->lga }}, {{ $admin->state }}</p>
+                                    <p class="uk-h6 uk-margin-remove-top">{{ $admin->lga_id }}, {{ $admin->state_id }}</p>
                                 </div>
                             </div>
                             <div>

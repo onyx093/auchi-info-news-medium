@@ -49,18 +49,20 @@ Route::prefix('admin')->group(function()
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
-
-    Route::get('/dashboard', 'Admin\AdminRouteController@dashboard')->name('admin.dashboard');
-    Route::get('/page-categories', 'Admin\AdminRouteController@pages')->name('page.categories');
-
-    Route::resource('/settings', 'Admin\AccountSettingsController');
-    Route::resource('/posts', 'Admin\PostController');
-    Route::resource('/users', 'Admin\UsersController');
-    Route::resource('/directories', 'Admin\DirectoryController');
-
     Route::get('/', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 
-    Route::get('/lga', 'Admin\AccountSettingsController@loadLGA');
+    Route::namespace('Admin')->group(function(){
+        Route::get('/dashboard', 'AdminRouteController@dashboard')->name('admin.dashboard');
+        Route::get('/page-categories', 'AdminRouteController@pages')->name('page.categories');
+    
+        Route::resource('/settings', 'AccountSettingsController');
+        Route::resource('/posts', 'PostController');
+        Route::resource('/users', 'UsersController');
+        Route::resource('/directories', 'DirectoryController');
+        Route::resource('/categories', 'CategoryController');
+        Route::resource('/tags', 'TagController');
+    
+    });
 
 });
 

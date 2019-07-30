@@ -5,7 +5,6 @@
     <div class="uk-flex uk-flex-center">
         <p class="mdc-typography--headline4" >{{ __('Login') }}</p>
     </div>
-    <!-- <p>{{ $errors->first('email') }}</p> -->
     <div class="uk-flex uk-flex-center">
         <form method="POST" action="{{ route('login') }}" >
             @csrf
