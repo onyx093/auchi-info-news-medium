@@ -33,7 +33,7 @@ Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::get('/the-marketplace', 'AdvertController@index')->name('marketplace.index');
 
 
-Route::get('/news/post', 'ContentsController@newpost')->name('post');
+Route::get('/posts/{post}-{slug}', 'ContentsController@showPost');
 
 Route::get('/contact-us', 'ContactController@index')->name('contact.index');
 

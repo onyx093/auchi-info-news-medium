@@ -4,7 +4,10 @@
 <div class="uk-container">
     {{-- <div class="mdc-typography--headline4">Dashboard</div> --}}
 
-    @include('layouts.components.trending')
+    {{-- @include('layouts.components.trending') --}}
+
+    <br>
+    <br>
 
     @include('layouts.big-grids.grids')
 
@@ -22,347 +25,187 @@
                     <ul class="uk-switcher">
                         <li>
                             <div class="grid-block grid-block1on2">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="{{ route('post') }}">Gadgets</a></p>
+                                @foreach ($general as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
+                                    @endif
+                                    
+                                @endforeach
                             </div>
                         </li>
                         <li>
                             <div class="grid-block grid-block1on2">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo2.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                @foreach ($politics as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
+                                    @endif
+                                    
+                                @endforeach
                             </div>
                         </li>
                         <li>
                             <div class="grid-block grid-block1on2">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo3.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                @foreach ($business as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
+                                    @endif
+                                    
+                                @endforeach
                             </div>
                         </li>
                         <li>
                             <div class="grid-block grid-block1on2">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo4.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                @foreach ($health as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
+                                    @endif
+                                    
+                                @endforeach
                             </div>
                         </li>
                         <li>
                             <div class="grid-block grid-block1on2">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo5.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                @foreach ($sports as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
+                                    @endif
+                                    
+                                @endforeach
                             </div>
                         </li>
                     </ul>
@@ -377,45 +220,39 @@
                     <ul class="uk-switcher">
                         <li>
                             <div class="grid-block grid-block1on1">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                @foreach ($justThree as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
+                                    @endif
+                                    
+                                @endforeach
                             </div>
                         </li>
                     </ul>
@@ -429,493 +266,205 @@
             <div class="mdc-layout-grid__cell--span-12">
                 <div class="blocks">
                     <ul uk-tab>
-                        <li><a href="#">News</a></li>
-                        <li><a href="#">Politics</a></li>
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Health</a></li>
-                        <li><a href="#">Sports</a></li>
+                        <li><a href="#">Opinion</a></li>
+                        <li><a href="#">Arts/Life</a></li>
+                        <li><a href="#">Religion</a></li>
+                        <li><a href="#">Editorial</a></li>
+                        <li><a href="#">Environment</a></li>
                     </ul>
                     <ul class="uk-switcher">
                         <li>
                             <div class="grid-block grid-block1on3">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                @foreach ($opinion as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
                                         </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
+                                    @endif
+                                    
+                                @endforeach
                             </div>
                         </li>
                         <li>
-                            <div class="grid-block grid-block1on3">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
+                                <div class="grid-block grid-block1on3">
+                                    @foreach ($arts as $post)
+    
+                                        @if ($loop->first)
+                                            <div class="first bulletin mdc-card">    
+                                                <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                    </div>
+                                                </section>
+                                                <section class="bulletin-text">
+                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                </section>
+                                            </div>
+                                        @else
+                                            <div class="rest bulletin mdc-card">    
+                                                <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                    </div>
+                                                </section>
+                                                <section class="bulletin-text">
+                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                </section>
+                                            </div>
+                                        @endif
+                                        
+                                    @endforeach
                                 </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                            </div>
                         </li>
                         <li>
-                            <div class="grid-block grid-block1on3">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
+                                <div class="grid-block grid-block1on3">
+                                    @foreach ($religion as $post)
+    
+                                        @if ($loop->first)
+                                            <div class="first bulletin mdc-card">    
+                                                <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                    </div>
+                                                </section>
+                                                <section class="bulletin-text">
+                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                </section>
+                                            </div>
+                                        @else
+                                            <div class="rest bulletin mdc-card">    
+                                                <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                    </div>
+                                                </section>
+                                                <section class="bulletin-text">
+                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                </section>
+                                            </div>
+                                        @endif
+                                        
+                                    @endforeach
                                 </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                            </div>
                         </li>
                         <li>
-                            <div class="grid-block grid-block1on3">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
+                                <div class="grid-block grid-block1on3">
+                                    @foreach ($editorial as $post)
+    
+                                        @if ($loop->first)
+                                            <div class="first bulletin mdc-card">    
+                                                <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                    </div>
+                                                </section>
+                                                <section class="bulletin-text">
+                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                </section>
+                                            </div>
+                                        @else
+                                            <div class="rest bulletin mdc-card">    
+                                                <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                    </div>
+                                                </section>
+                                                <section class="bulletin-text">
+                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                </section>
+                                            </div>
+                                        @endif
+                                        
+                                    @endforeach
                                 </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                            </div>
                         </li>
                         <li>
-                            <div class="grid-block grid-block1on3">
-                                <div class="first bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
+                                <div class="grid-block grid-block1on3">
+                                    @foreach ($opinion as $post)
+    
+                                        @if ($loop->first)
+                                            <div class="first bulletin mdc-card">    
+                                                <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                    </div>
+                                                </section>
+                                                <section class="bulletin-text">
+                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                </section>
+                                            </div>
+                                        @else
+                                            <div class="rest bulletin mdc-card">    
+                                                <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                    </div>
+                                                </section>
+                                                <section class="bulletin-text">
+                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                </section>
+                                            </div>
+                                        @endif
+                                        
+                                    @endforeach
                                 </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                                <div class="rest bulletin mdc-card">    
-                                    <section class="uk-inline uk-cover-container mdc-card__media" >
-                                        <img src="img/photo1.jpg" alt="" uk-cover>
-                                        <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                            <p class="sub-category mdc-card__primary-action"><a href="#">Gadgets</a></p>
-                                        </div>
-                                    </section>
-                                    <section class="bulletin-text">
-                                        <p class="headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                                        <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-                                        <p class="bulletin-article" >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci cupiditate temporibus molestiae cumque fugiat molestias soluta nulla in esse quisquam unde consequuntur a ducimus enim odit, voluptates non ab illo?</p>
-                                    </section>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <br>
+    <br>
 
 
 </div>

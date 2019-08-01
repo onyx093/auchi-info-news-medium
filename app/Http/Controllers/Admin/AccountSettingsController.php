@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 use App\Admin;
 use App\State;
@@ -89,7 +91,7 @@ class AccountSettingsController extends Controller
         session()->flash('message', 'Error!');
         $this->validate($request, array(
             'name' => 'required|max:255',
-            'image' => 'nullable|image',
+            'image' => 'sometimes|file|image|max:10000',
             'website' => 'nullable|url|max:255',
             'phone' => 'nullable|digits:11',
             'facebook' => 'nullable|url|max:255',
@@ -103,7 +105,18 @@ class AccountSettingsController extends Controller
 
         $admin = Admin::find($id);
         $admin->name = $request->input('name');
-        $admin->image = $request->input('image');
+
+        if($request->hasFile('image'))
+        {
+            //$oldImage = $post->image;
+            $oldImageFullPath = 'public/' . $admin->image;
+            $uploadedImage = $request->image->store('uploads/admin_profiles', 'public');
+            $admin->image = $uploadedImage;
+
+            Image::make(public_path('storage/' . $admin->image))->fit(320, 320)->save();
+            Storage::delete($oldImageFullPath);
+
+        }
         $admin->web_link = $request->input('website');
         $admin->phone = $request->input('phone');
         $admin->facebook_link = $request->input('facebook');

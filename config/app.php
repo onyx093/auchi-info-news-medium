@@ -167,6 +167,7 @@ return [
          */
         LaravelFrontendPresets\UIKit3Preset\UIKit3PresetServiceProvider::class,
         \Torann\GeoIP\GeoIPServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -227,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

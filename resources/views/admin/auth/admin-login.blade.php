@@ -32,30 +32,6 @@
                 <div id="password-helper-text" class="mdc-text-field-helper-text--validation-msg"><small>{{ $errors->first('password') }}</small></div>
             </div>
 
-            <div class="mdc-form-field">
-                <div class="mdc-checkbox">
-                    <input type="checkbox"
-                        class="mdc-checkbox__native-control"
-                        id="checkbox-1"/>
-                    <div class="mdc-checkbox__background">
-                    <svg class="mdc-checkbox__checkmark"
-                        viewBox="0 0 24 24">
-                        <path class="mdc-checkbox__checkmark-path"
-                            fill="none"
-                            d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                    </svg>
-                    <div class="mdc-checkbox__mixedmark"></div>
-                    </div>
-                </div>
-                <label for="checkbox-1">Remember me</label>
-            </div>
-
-            <br>
-            <br>
-            @if (Route::has('password.request'))
-            <a href="{{ route('password.request') }}" class="mdc-typography--body1">{{ __('Forgot Your Password?') }}</a>
-            @endif
-
             <br>
             <br>
             <button class="mdc-button mdc-button--raised uk-align-center">

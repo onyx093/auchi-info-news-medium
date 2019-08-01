@@ -4,13 +4,15 @@
 
 <div class="uk-full-width-container">
 
+    <br>
     <div class="uk-container">
         <ul class="uk-breadcrumb">
-            <li><a href="">Home</a></li>
-            <li><a href="">News</a></li>
-            <li><span>This is a new post</span></li>
+        <li><a href="{{route('welcome')}}">Home</a></li>
+            <li><a href="#">{{ $post->category->name }}</a></li>
+            <li><span>{{ $post->title }}</span></li>
         </ul>
     </div>
+    <br>
 
     <div class="uk-container">
         <div class="mdc-layout-grid">
@@ -18,11 +20,12 @@
                 <div class="mdc-layout-grid__cell--span-8">
                     <div class="post">
                         <section class="post-header">
-                            <p class="mdc-typography--headline3 headline" >Auchi Info website makes an epic comeback</p>
-                            <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
+                            <p class="mdc-typography--headline3 headline" >{{ $post->title }}</p>
+                            <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y h:ia', strtotime( $post->updated_at )) }}</a></span></p>
                         </section>
                         <article class="post-content">
-                            <img data-src="{{ asset('img/photo1.jpg') }}" width="1800" height="1200" alt="" uk-img>
+                            {!! $post->content !!}
+                            {{-- <img data-src="{{ asset('img/photo1.jpg') }}" alt="" uk-img>
                             <p class="mdc-typography--body1 uk-dropcap">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit cumque, fuga ab assumenda dolores dolorum obcaecati earum voluptates ea quia voluptatibus! Expedita ipsum saepe incidunt dicta fuga aliquam unde in?Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit cumque, fuga ab assumenda dolores dolorum obcaecati earum voluptates ea quia voluptatibus! Expedita ipsum saepe incidunt dicta fuga aliquam unde in?</p>
                             <p class="mdc-typography--headline6">Impedit cumque, fuga ab assumenda dolores dolorum obcaecati earum voluptates ea quia voluptatibus!</p>
                             <p class="mdc-typography--body1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit cumque, fuga ab assumenda dolores dolorum obcaecati earum voluptates ea quia voluptatibus! Expedita ipsum saepe incidunt dicta fuga aliquam unde in?</p>
@@ -58,7 +61,7 @@
                                     <li>List item 2</li>
                                     <li>List item 3</li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </article>
                     </div>
                 </div>

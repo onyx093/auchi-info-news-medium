@@ -23,7 +23,7 @@
                     <div class="mdc-layout-grid__cell--span-12">
                         <div class="mdc-card uk-child-width-1-1@s uk-align-center uk-padding uk-text-left" uk-grid>
                             <div>
-                                <form method="POST" action="{{ route('settings.update', $admin->id) }}" >
+                                <form method="POST" action="{{ route('settings.update', $admin->id) }}" enctype="multipart/form-data" >
                                     @method('PATCH')
                                     @csrf
                                     <div class="mdc-layout-grid">
@@ -131,7 +131,7 @@
                                     </div>
                                     <div class="mdc-text-field mdc-text-field--fullwidth mdc-text-field--textarea">
                                         <textarea id="description-text-field" name="description" class="mdc-text-field__input" rows="8" cols="40" aria-controls="description-helper-text"
-                                    aria-describedby="description-helper-text"></textarea>{{ session()->get('message') === 'Error!' ? old('description') : $admin->description }}</textarea>
+                                    aria-describedby="description-helper-text">{{ session()->get('message') === 'Error!' ? old('description') : $admin->description }}</textarea>
                                         <div class="mdc-notched-outline">
                                             <div class="mdc-notched-outline__leading"></div>
                                             <div class="mdc-notched-outline__notch">

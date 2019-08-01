@@ -22,7 +22,7 @@
                 <div class="mdc-layout-grid__inner">
                     <div class="mdc-layout-grid__cell--span-12 uk-tile uk-tile-default admin-post-items">
                         <p class="mdc-typography--headline6 uk-text-center">Edit post</p>
-                        <form method="POST" action="{{ route('posts.update', ['post' => $post->id]) }}" >
+                        <form method="POST" action="{{ route('posts.update', ['post' => $post->id]) }}" enctype="multipart/form-data" >
                             @method('PATCH')
                             @csrf
                             <div class="mdc-text-field mdc-text-field--fullwidth">
@@ -32,6 +32,16 @@
                             </div>
                             <div class="mdc-text-field-helper-line">
                                 <div id="post_title-helper-text" class="mdc-text-field-helper-text--validation-msg"><small>{{ $errors->first('post_title') }}</small></div>
+                            </div>
+
+                            <br>
+
+                            <div class="mdc-text-field mdc-text-field--fullwidth">
+                                <input type="file" id="image-text-field" name="image" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="post_image-text-field"></label>
+                            </div>
+                            <div class="mdc-text-field-helper-line">
+                                <div id="post_title-helper-text" class="mdc-text-field-helper-text--validation-msg"><small>{{ $errors->first('post_image') }}</small></div>
                             </div>
 
                             <br>

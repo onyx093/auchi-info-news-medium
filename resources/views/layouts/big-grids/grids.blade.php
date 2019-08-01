@@ -470,32 +470,24 @@
 
     <br>
     <br> -->
+<?php
 
+$digit = ['one', 'two', 'three', 'four', 'five', 'six'];
+$count = 0;
+
+?>
     <div class="grid big-grids grid-type12">
-        <div class="one uk-inline uk-cover-container" >
-            <img src="img/photo1.jpg" alt="" uk-cover>
-            <div class="uk-overlay uk-light uk-position-bottom">
-                <p class="sub-category"><a href="#">Gadgets</a></p>
-                <p class="mdc-typography--headline5 headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
+
+        @foreach ($justThree as $post)
+            <div class="{{ $digit[$count++] }} uk-inline uk-cover-container" >
+                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                <div class="uk-overlay uk-light uk-position-bottom">
+                    <p class="sub-category"><a href="{{ $post->slugifiedURL() }}">{{ $post->category->name }}</a></p>
+                    <p class="mdc-typography--headline5 headline" ><a href="{{ $post->slugifiedURL() }}">{{ $post->title }}</a></p>
+                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                </div>
             </div>
-        </div>
-        <div class="two uk-inline uk-cover-container" >
-            <img src="img/photo2.jpg" alt="" uk-cover>
-            <div class="uk-overlay uk-light uk-position-bottom">
-                <p class="sub-category"><a href="#">Gadgets</a></p>
-                <p class="mdc-typography--headline5 headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-            </div>
-        </div>
-        <div class="three uk-inline uk-cover-container" >
-            <img src="img/photo3.jpg" alt="" uk-cover>
-            <div class="uk-overlay uk-light uk-position-bottom">
-                <p class="sub-category"><a href="#">Gadgets</a></p>
-                <p class="mdc-typography--headline5 headline" ><a href="#">Default Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></p>
-                <p class="metadata"><a href="#">Ahmed Sylvanus</a><span class="date"> - <a href="#">Jun 22, 2019</a></span></p>
-            </div>
-        </div>
+        @endforeach
     </div>
 
         </div>

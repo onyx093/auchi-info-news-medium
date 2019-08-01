@@ -3,18 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+use App\Post;
+use App\Category;
 
 class ContentsController extends Controller
 {
     //
     public function index()
     {
-        return view('home');
+
+        $post = [];
+        $categories = Category::all();
+        // $postInstance = new Post;
+        // foreach ($categories as $category) {
+        //     $post[$category->name] = Post::eachCategory($category->id)->orderBy('updated_at', 'desc')->take(10)->get();
+        // }
+        // $generalPosts = Post::category()->get();
+        // dd($post);
+        $justThree = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $general = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(5)->get();
+        $business = Post::eachCategory(2)->orderBy('updated_at', 'desc')->inRandomOrder()->take(5)->get();
+        $politics = Post::eachCategory(3)->orderBy('updated_at', 'desc')->inRandomOrder()->take(5)->get();
+        $health = Post::eachCategory(4)->orderBy('updated_at', 'desc')->inRandomOrder()->take(5)->get();
+        $sports = Post::eachCategory(10)->orderBy('updated_at', 'desc')->inRandomOrder()->take(5)->get();
+        
+        $opinion = Post::eachCategory(8)->orderBy('updated_at', 'desc')->inRandomOrder()->take(7)->get();
+        $environment = Post::eachCategory(9)->orderBy('updated_at', 'desc')->inRandomOrder()->take(7)->get();
+        $arts = Post::eachCategory(5)->orderBy('updated_at', 'desc')->inRandomOrder()->take(7)->get();
+        $religion = Post::eachCategory(6)->orderBy('updated_at', 'desc')->inRandomOrder()->take(7)->get();
+        $editorial = Post::eachCategory(7)->orderBy('updated_at', 'desc')->inRandomOrder()->take(7)->get();
+
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('home', compact('justThree', 'general', 'business', 'politics', 'health', 'sports', 'opinion', 'environment', 'arts', 'religion', 'editorial', 'choice', 'mostViewed'));
     }
 
-    public function newpost()
+    public function showPost($id)
     {
-        return view('post');
+
+        $post = Post::find($id);
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('post', compact('post', 'choice', 'mostViewed'));
+
     }
 
     public function business()

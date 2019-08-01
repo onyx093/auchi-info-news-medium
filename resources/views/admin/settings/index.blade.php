@@ -19,7 +19,7 @@
                                     <p class="uk-h6 caption-header">Name</p>
                                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                                         <div class="uk-width-auto">
-                                            <img class="uk-border-circle" width="40" height="40" src="{{ asset('img/photo5.jpg') }}">
+                                            <img class="uk-border-circle" width="40" height="40" src="{{ asset('storage/'. $admin->image) }}">
                                         </div>
                                         <div class="uk-width-expand">
                                             <p class="uk-h5 uk-margin-remove-bottom">{{ Auth::user()->name }}</p>

@@ -25,9 +25,9 @@
                             <table class="uk-table uk-table-striped uk-table-middle uk-table-divider">
                                 <thead>
                                     <tr>
-                                        <th class="uk-table-expand">#</th>
+                                        <th class="uk-width-auto">#</th>
                                         <th class="uk-table-expand">Category</th>
-                                        <th class="uk-table-expand uk-text-nowrap">Action</th>
+                                        {{-- <th class="uk-table-expand uk-text-nowrap">Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -35,7 +35,7 @@
                                 <tr>
                                     <td>{{ $category->id }}</td>
                                     <td class="uk-text-capitalize" >{{ $category->name }}</td>
-                                    <td class="uk-text-nowrap">
+                                    {{-- <td class="uk-text-nowrap">
                                         <button class="mdc-button uk-margin-small-top">
                                             <a href="{{ route( 'categories.edit', [ 'post' => $category->id ] ) }}" class="mdc-button__label">Edit</a>
                                         </button>
@@ -45,7 +45,7 @@
                                                 <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" tabindex="0" role="button">cancel</i>
                                             </button>
                                         </div>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 @endforeach
                                 </tbody>

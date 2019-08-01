@@ -13,7 +13,7 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         //
-        $categories = ['general', 'business', 'politics', 'health', 'arts & life', 'religion', 'editorial', 'opinion', 'environment', 'sports'];
+        $categories = ['General', 'Business', 'Politics', 'Health', 'Arts & Life', 'Religion', 'Editorial', 'Opinion', 'Environment', 'Sports'];
         foreach ($categories as $key => $value) {
             DB::table('categories')->insert([
                 'name' => $value,

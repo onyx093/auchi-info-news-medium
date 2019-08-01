@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 use App\Post;
 use App\Category;
@@ -25,8 +27,9 @@ class PostController extends Controller
     public function index()
     {
         //
-        $my_posts = Post::myPosts(Auth::user()->id)->get();
-        return view('admin.posts.index', compact('my_posts'));
+        $posts = Post::with('admin')->paginate(15);
+        $my_posts = Post::myPosts(Auth::user()->id)->paginate(15);
+        return view('admin.posts.index', compact('my_posts', 'posts'));
     }
 
     /**
@@ -50,16 +53,26 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        //$this->authorize( 'create', Post::class );
         $this->validate($request, array(
             'post_title' => 'required|min:10|max:150',
             'category' => 'required',
             'post_body' => 'required',
+            'image' => 'required|file|image|max:10000',
         ));
 
         $post = new Post;
         $post->title = $request->post_title;
         $post->category_id = $request->category;
         $post->content = $request->post_body;
+
+        //dd($request->image);
+
+        $uploadedImage = $request->image->store('uploads', 'public');
+        $post->image = $uploadedImage;
+
+        Image::make(public_path('storage/' . $post->image))->fit(620, 620)->save();
+
         $post->admin_id = Auth::user()->id;
         $post->save();
         session()->flash('message', 'A new post has been created successfully');
@@ -101,17 +114,32 @@ class PostController extends Controller
     public function update(Request $request, $post)
     {
         //
-        session()->flash('message', 'Error!');
+        //$this->authorize( 'update', $post );
+        session()->flash( 'message', 'Error!' );
         $this->validate($request, array(
             'post_title' => 'required|min:10|max:150',
             'category' => 'required',
             'post_body' => 'required',
+            'image' => 'sometimes|file|image|max:10000',
         ));
 
         $post = Post::find($post);
         $post->title = $request->input('post_title');
         $post->category_id = $request->input('category');
         $post->content = $request->input('post_body');
+
+        if($request->hasFile('image'))
+        {
+            //$oldImage = $post->image;
+            $oldImageFullPath = 'public/' . $post->image;
+            $uploadedImage = $request->image->store('uploads', 'public');
+            $post->image = $uploadedImage;
+
+            Image::make(public_path('storage/' . $post->image))->fit(620, 620)->save();
+            Storage::delete($oldImageFullPath);
+
+        }
+
         $post->admin_id = Auth::user()->id;
         $post->save();
 
@@ -129,4 +157,6 @@ class PostController extends Controller
     {
         //
     }
+
+    
 }

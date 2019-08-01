@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+
+use App\Admin;
 
 class AdminLoginController extends Controller
 {
@@ -31,6 +34,12 @@ class AdminLoginController extends Controller
         // Attempt to log the user in
         if (Auth::guard('admin')->attempt([ 'email' => $request->email, 'password' => $request->password ], $request->remember)) {
             // If successful, then redirect to the intended location
+           // $admin = Admin::find(Auth::user()->id);
+
+            //Image::make(public_path('storage/' . $post->image))->fit(320, 320)->save();
+            //$img = Image::canvas(150, 150, '#fea843');
+            //$storedImg = Image::make(public_path('storage/uploads/admin_profile' . $img))->save();
+            //$admin->update(['image' => $storedImg]);
             return redirect()->intended(route('admin.dashboard'));
         }
 

@@ -36,7 +36,6 @@
                             <li>{{ $ip_location->country }}</li>
                             @endif
                             <li>{{ date("l, F j Y") }}</li>
-                            <li><a href="{{ route('contact.index') }}">Contact</a></li>
                             @guest
                             <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             @if (Route::has('register'))

@@ -22,12 +22,25 @@
                 <div class="mdc-layout-grid__inner">
                     <div class="mdc-layout-grid__cell--span-12 uk-tile uk-tile-default admin-post-items">
                         <p class="mdc-typography--body1 uk-text-center">Create a new post</p>
-                        <form method="POST" action="{{ route('posts.store') }}" >
+                        <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data" >
                             @csrf
                             <div class="mdc-text-field mdc-text-field--fullwidth">
-                                <input type="text" id="post_title-text-field" name="post_title" class="mdc-text-field__input">
+                                <input type="text" id="post_title-text-field" name="post_title" class="mdc-text-field__input" value="{{ old('post_title') }}">
                                 <label class="mdc-floating-label" for="post_title-text-field">Post title:</label>
                                 <div class="mdc-line-ripple"></div>
+                            </div>
+                            <div class="mdc-text-field-helper-line">
+                                <div id="post_title-helper-text" class="mdc-text-field-helper-text--validation-msg"><small>{{ $errors->first('post_title') }}</small></div>
+                            </div>
+
+                            <br>
+
+                            <div class="mdc-text-field mdc-text-field--fullwidth">
+                                <input type="file" id="post_image-text-field" name="image" class="mdc-text-field__input">
+                                <label class="mdc-floating-label" for="post_image-text-field"></label>
+                            </div>
+                            <div class="mdc-text-field-helper-line">
+                                <div id="post_title-helper-text" class="mdc-text-field-helper-text--validation-msg"><small>{{ $errors->first('post_image') }}</small></div>
                             </div>
 
                             <br>
