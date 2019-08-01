@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
+use App\Post;
+
 class LoginController extends Controller
 {
     /*
@@ -36,6 +38,13 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except(['logout', 'userLogout']);
+    }
+
+    public function showLoginForm()
+    {
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('auth.login', compact('choice', 'mostViewed'));
     }
 
     public function userLogout()

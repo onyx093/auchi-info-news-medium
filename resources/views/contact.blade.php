@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<br>
 <div class="uk-full-width-container">
     <div class="uk-container">
         <ul class="uk-breadcrumb">
@@ -9,6 +10,7 @@
         </ul>
     </div>
 
+    <br>
     <div class="uk-container">
         <h1 class="uk-heading-line mdc-typography"><span>Contact our sales page</span></h1>
         <p class="mdc-typography--headline6">Let's talk about helping you put your business in the frontline</p>

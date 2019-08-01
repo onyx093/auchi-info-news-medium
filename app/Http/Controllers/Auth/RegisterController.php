@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use App\Post;
+
 class RegisterController extends Controller
 {
     /*
@@ -68,5 +70,12 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('auth.register', compact('choice', 'mostViewed'));
     }
 }

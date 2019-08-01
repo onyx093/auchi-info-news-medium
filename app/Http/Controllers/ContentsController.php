@@ -52,85 +52,119 @@ class ContentsController extends Controller
 
     public function business()
     {
-        return view('business');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('business', compact('choice', 'mostViewed'));
     }
 
     public function politics()
     {
-        return view('politics');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('politics', compact('choice', 'mostViewed'));
     }
 
     public function health()
     {
-        return view('health');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('health', compact('choice', 'mostViewed'));
     }
 
     public function arts()
     {
-        return view('arts');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('arts', compact('choice', 'mostViewed'));
     }
 
     public function religion()
     {
-        return view('religion');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('religion', compact('choice', 'mostViewed'));
     }
 
     public function editorial()
     {
-        return view('editorial');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('editorial', compact('choice', 'mostViewed'));
     }
 
     public function opinions()
     {
-        return view('opinions');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('opinions', compact('choice', 'mostViewed'));
     }
 
     public function environment()
     {
-        return view('environment');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('environment', compact('choice', 'mostViewed'));
     }
 
     public function sports()
     {
-        return view('sports');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('sports', compact('choice', 'mostViewed'));
     }
 
     public function about()
     {
-        return view('about');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('about', compact('choice', 'mostViewed'));
     }
 
     public function terms()
     {
-        return view('terms');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('terms', compact('choice', 'mostViewed'));
     }
 
     public function policy()
     {
-        return view('policy');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('policy', compact('choice', 'mostViewed'));
     }
 
     public function advert()
     {
-        return view('advert');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('advert', compact('choice', 'mostViewed'));
     }
 
     public function directory()
     {
-        return view('directory');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('directory', compact('choice', 'mostViewed'));
     }
 
     public function ireport()
     {
-        return view('ireport');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('ireport', compact('choice', 'mostViewed'));
     }
 
     public function writeforus()
     {
-        return view('writeforus');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('writeforus', compact('choice', 'mostViewed'));
     }
     public function marketplace()
     {
-        return view('marketplace');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('marketplace', compact('choice', 'mostViewed'));
     }
 }

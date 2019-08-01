@@ -27,7 +27,7 @@ Route::get('/privacy-policy', 'ContentsController@policy')->name('policy');
 Route::get('/advert-rate', 'ContentsController@advert')->name('advert');
 Route::get('/directory', 'ContentsController@directory')->name('directory');
 Route::get('/ireport', 'ContentsController@ireport')->name('ireport');
-Route::get('/writeforus', 'ContentsController@writeforus')->name('writeforus');
+// Route::get('/write-for-us', 'ContentsController@writeforus')->name('writeforus');
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::get('/the-marketplace', 'AdvertController@index')->name('marketplace.index');

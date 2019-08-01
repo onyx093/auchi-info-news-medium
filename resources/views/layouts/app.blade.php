@@ -197,10 +197,10 @@
                             </li>
                             {{-- <li class="mdc-list-item">
                                 <span class="mdc-list-item__text"><a href="{{ route('ireport') }}">I report</a></span>
-                            </li> --}}
+                            </li> 
                             <li class="mdc-list-item">
                                 <span class="mdc-list-item__text"><a href="{{ route('writeforus') }}">Write for us</a></span>
-                            </li>
+                            </li> --}}
                             <li class="mdc-list-item">
                                 <span class="mdc-list-item__text"><a href="{{ route('login') }}">Login</a></span>
                             </li>

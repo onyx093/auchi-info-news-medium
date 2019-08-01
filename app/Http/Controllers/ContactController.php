@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Post;
+
 class ContactController extends Controller
 {
     /**
@@ -13,7 +15,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('contact');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('contact', compact('post', 'choice', 'mostViewed'));
     }
 
     /**

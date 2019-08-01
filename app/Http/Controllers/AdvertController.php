@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Post;
+
 class AdvertController extends Controller
 {
 
@@ -20,7 +22,9 @@ class AdvertController extends Controller
     public function index()
     {
         //
-        return view('marketplace.index');
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('marketplace.index', compact('choice', 'mostViewed'));
     }
 
     /**
@@ -53,8 +57,9 @@ class AdvertController extends Controller
     public function show($id)
     {
         //
-        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
-        return view('marketplace.show', [ 'ip_location' => $arr_ip ]);
+        $choice = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        $mostViewed = Post::orderBy('updated_at', 'desc')->inRandomOrder()->take(3)->get();
+        return view('marketplace.show', compact('choice', 'mostViewed'));
     }
 
     /**
