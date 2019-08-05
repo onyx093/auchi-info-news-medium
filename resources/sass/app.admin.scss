@@ -95,6 +95,10 @@ body{
         }
 
         > .mdc-card{
+            .uk-card-media-top{
+                height: 150px;
+                overflow: hidden;
+            }
             .uk-card-body{
                 padding: 0.5rem;
                 position: relative;
@@ -127,6 +131,7 @@ body{
 .admin-show-post{
     .uk-tile{
         padding: 1.5rem;
+        height: auto;
     }
     .mdc-card{
         .uk-card-media-top img{

@@ -1,4 +1,4 @@
-<div class="uk-inline adverts advert-100">
+<div class="uk-inline adverts advert-200">
 
     <img src="{{ asset('img/photo5.jpg') }}" alt="">
 

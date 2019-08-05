@@ -38,7 +38,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @else
@@ -52,7 +52,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @endif
@@ -75,7 +75,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @else
@@ -89,7 +89,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @endif
@@ -112,7 +112,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @else
@@ -126,7 +126,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @endif
@@ -149,7 +149,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @else
@@ -163,7 +163,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @endif
@@ -213,6 +213,7 @@
                 @include('layouts.adverts')
             </div>
             <div class="mdc-layout-grid__cell--span-4">
+                @include('layouts.adverts')
                 <div class="blocks">
                     <ul uk-tab>
                         <li><a href="#">News</a></li>
@@ -233,7 +234,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @else
@@ -247,7 +248,7 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
                                     @endif
@@ -288,6 +289,117 @@
                                             <section class="bulletin-text">
                                                 <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
                                                 <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
+                                        </div>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
+                                        </div>
+                                    @endif
+                                    
+                                @endforeach
+                            </div>
+                        </li>
+                        <li>
+                            <div class="grid-block grid-block1on3">
+                                @foreach ($arts as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
+                                        </div>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
+                                        </div>
+                                    @endif
+                                    
+                                @endforeach
+                            </div>
+                        </li>
+                        <li>
+                            <div class="grid-block grid-block1on3">
+                                @foreach ($religion as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
+                                        </div>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
+                                        </div>
+                                    @endif
+                                    
+                                @endforeach
+                            </div>
+                        </li>
+                        <li>
+                            <div class="grid-block grid-block1on3">
+                                @foreach ($editorial as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
                                                 <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
                                             </section>
                                         </div>
@@ -311,152 +423,41 @@
                             </div>
                         </li>
                         <li>
-                                <div class="grid-block grid-block1on3">
-                                    @foreach ($arts as $post)
-    
-                                        @if ($loop->first)
-                                            <div class="first bulletin mdc-card">    
-                                                <section class="uk-inline uk-cover-container mdc-card__media" >
-                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
-                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
-                                                    </div>
-                                                </section>
-                                                <section class="bulletin-text">
-                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
-                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
-                                                </section>
-                                            </div>
-                                        @else
-                                            <div class="rest bulletin mdc-card">    
-                                                <section class="uk-inline uk-cover-container mdc-card__media" >
-                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
-                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
-                                                    </div>
-                                                </section>
-                                                <section class="bulletin-text">
-                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
-                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
-                                                </section>
-                                            </div>
-                                        @endif
-                                        
-                                    @endforeach
-                                </div>
-                        </li>
-                        <li>
-                                <div class="grid-block grid-block1on3">
-                                    @foreach ($religion as $post)
-    
-                                        @if ($loop->first)
-                                            <div class="first bulletin mdc-card">    
-                                                <section class="uk-inline uk-cover-container mdc-card__media" >
-                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
-                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
-                                                    </div>
-                                                </section>
-                                                <section class="bulletin-text">
-                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
-                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
-                                                </section>
-                                            </div>
-                                        @else
-                                            <div class="rest bulletin mdc-card">    
-                                                <section class="uk-inline uk-cover-container mdc-card__media" >
-                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
-                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
-                                                    </div>
-                                                </section>
-                                                <section class="bulletin-text">
-                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
-                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
-                                                </section>
-                                            </div>
-                                        @endif
-                                        
-                                    @endforeach
-                                </div>
-                        </li>
-                        <li>
-                                <div class="grid-block grid-block1on3">
-                                    @foreach ($editorial as $post)
-    
-                                        @if ($loop->first)
-                                            <div class="first bulletin mdc-card">    
-                                                <section class="uk-inline uk-cover-container mdc-card__media" >
-                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
-                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
-                                                    </div>
-                                                </section>
-                                                <section class="bulletin-text">
-                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
-                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
-                                                </section>
-                                            </div>
-                                        @else
-                                            <div class="rest bulletin mdc-card">    
-                                                <section class="uk-inline uk-cover-container mdc-card__media" >
-                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
-                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
-                                                    </div>
-                                                </section>
-                                                <section class="bulletin-text">
-                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
-                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
-                                                </section>
-                                            </div>
-                                        @endif
-                                        
-                                    @endforeach
-                                </div>
-                        </li>
-                        <li>
-                                <div class="grid-block grid-block1on3">
-                                    @foreach ($opinion as $post)
-    
-                                        @if ($loop->first)
-                                            <div class="first bulletin mdc-card">    
-                                                <section class="uk-inline uk-cover-container mdc-card__media" >
-                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
-                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
-                                                    </div>
-                                                </section>
-                                                <section class="bulletin-text">
-                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
-                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
-                                                </section>
-                                            </div>
-                                        @else
-                                            <div class="rest bulletin mdc-card">    
-                                                <section class="uk-inline uk-cover-container mdc-card__media" >
-                                                    <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
-                                                    <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
-                                                        <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
-                                                    </div>
-                                                </section>
-                                                <section class="bulletin-text">
-                                                    <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
-                                                    <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
-                                                    <p class="bulletin-article" >{{ substr($post->content, 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
-                                                </section>
-                                            </div>
-                                        @endif
-                                        
-                                    @endforeach
-                                </div>
+                            <div class="grid-block grid-block1on3">
+                                @foreach ($opinion as $post)
+
+                                    @if ($loop->first)
+                                        <div class="first bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
+                                        </div>
+                                    @else
+                                        <div class="rest bulletin mdc-card">    
+                                            <section class="uk-inline uk-cover-container mdc-card__media" >
+                                                <img src="{{ asset('storage/'. $post->image) }}" alt="" uk-cover>
+                                                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left">
+                                                    <p class="sub-category mdc-card__primary-action"><a href="">{{ $post->category->name }}</a></p>
+                                                </div>
+                                            </section>
+                                            <section class="bulletin-text">
+                                                <p class="headline" ><a href="{{ $post->slugifiedURL() }}">{{ substr($post->title, 0, 60)}}{{ strlen($post->title) > 60 ? "...":""}}</a></p>
+                                                <p class="metadata"><a href="#">{{ $post->admin->name }}</a><span class="date"> - <a href="#">{{ date('M j, Y', strtotime( $post->updated_at )) }}</a></span></p>
+                                                <p class="bulletin-article" >{{ substr(strip_tags($post->content), 0, 150)}}{{ strlen($post->content) > 150 ? "...":""}}</p>
+                                            </section>
+                                        </div>
+                                    @endif
+                                    
+                                @endforeach
+                            </div>
                         </li>
                     </ul>
                 </div>

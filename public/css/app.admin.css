@@ -91,6 +91,11 @@ body {
   display: none;
 }
 
+.admin-post-list .admin-post-items--grid > .mdc-card .uk-card-media-top {
+  height: 150px;
+  overflow: hidden;
+}
+
 .admin-post-list .admin-post-items--grid > .mdc-card .uk-card-body {
   padding: 0.5rem;
   position: relative;
@@ -120,6 +125,7 @@ body {
 
 .admin-show-post .uk-tile {
   padding: 1.5rem;
+  height: auto;
 }
 
 .admin-show-post .mdc-card .uk-card-media-top img {
